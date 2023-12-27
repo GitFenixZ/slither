@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group = 'fr.uparis.informatique.cpoo5'
+group = ''
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -20,5 +20,5 @@ test {
 }
 
 application {
-    mainClass = 'fr.uparis.informatique.cpoo5.Main'
+    mainClass = 'Main'
 }
