@@ -19,6 +19,7 @@ public class BasicSegment implements Segment {
         return currentY;
     }
 
+    @Override
     public BasicSegment copy() {
         return new BasicSegment(currentX, currentY);
     }

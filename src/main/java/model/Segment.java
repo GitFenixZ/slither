@@ -9,7 +9,9 @@ public interface Segment {
 
     Segment copy();
 
-    /** Without taking the grid into account, check if the target position can be attained
+    /**
+     * Without taking the grid into account, check if the target position can be attained
+     *
      * @param x the horizontal coordinate of the target position
      * @param y the vertical coordinate of the target position
      * @return true if the target position can be attained from the current one, false otherwise
