@@ -19,6 +19,10 @@ public class BasicSegment implements Segment {
         return currentY;
     }
 
+    public BasicSegment copy() {
+        return new BasicSegment(currentX, currentY);
+    }
+
     @Override
     public void moveToPosition(int x, int y) {
         if (isMoveValid(x, y)) {

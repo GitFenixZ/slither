@@ -7,6 +7,8 @@ public interface Segment {
 
     int getCurrentY();
 
+    Segment copy();
+
     /** Without taking the grid into account, check if the target position can be attained
      * @param x the horizontal coordinate of the target position
      * @param y the vertical coordinate of the target position

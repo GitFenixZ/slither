@@ -17,6 +17,22 @@ public class Snake {
         }
     }
 
+    Segment getSegmentAtIndex(int i) {
+        return segments.get(i).copy();
+    }
+
+    Segment getHead() {
+        return getSegmentAtIndex(0);
+    }
+
+    int getHeadX() {
+        return getHead().getCurrentX();
+    }
+
+    int getHeadY() {
+        return getHead().getCurrentY();
+    }
+
     /**
      * Move the head of the snake to the given position, dragging the rest of the segments with it
      *
