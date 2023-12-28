@@ -130,7 +130,7 @@ private int time = 0; // Time in seconds since the beginning of the game
 ### Tests
 
 - Any code that is not tested will not be accepted
-- The name of the test class must be `Test` followed by the name of the class being tested _e.g._ `PlayerImplementationTest`
+- The name of the test class must be `Test` followed by the name of the class being tested _e.g._ `TestPlayerImplementation`
 
 - Tests are expected for the majority of functions (not `private`)
 - It is expected that tests be independent of each other (no dependency between tests)
@@ -159,7 +159,8 @@ Please format your code according to `intellij_idea_format_profile.xml`.
 
 ### Branches
 
-- Branch naming follows the convention: `Issue#-short-issue-name` e.g. `1-create-project` (In an issue, you can use Github's `Development` tab to create a new branch.)
+- Branch naming follows the convention: `Issue#-short-issue-name` e.g. `1-create-project` (In an issue, you can use
+  GitHub's `Development` tab to create a new branch.)
 - No commits will be tolerated on `master` branch
 
 ### Pull Requests
