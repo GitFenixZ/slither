@@ -39,6 +39,11 @@ public class Snake {
         return segments.size();
     }
 
+    /**
+     * Moves the snake in the specified direction.
+     * 
+     * @param direction the direction in which the snake should move
+     */
     public void moveToDirection(Direction direction) {
         if (!isValidDirection(direction)) {
             return;
