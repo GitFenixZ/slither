@@ -9,8 +9,13 @@ public enum Direction {
     LEFT,
     RIGHT;
 
-    public static final int STEP = 1;
+    public static final int STEP = 1; // The step increment for each move.
 
+    /**
+     * Returns the coordinates matching the current direction.
+     *
+     * @return coordinates matching the current direction
+     */
     public Point2D getCoordinates() {
         return switch (this) {
             case UP -> new Point2D(0, -STEP);
@@ -21,6 +26,11 @@ public enum Direction {
         };
     }
 
+    /**
+     * Returns the opposite direction of the current one.
+     *
+     * @return opposite direction of the current one
+     */
     public Direction getOpposite() {
         return switch (this) {
             case UP -> DOWN;
