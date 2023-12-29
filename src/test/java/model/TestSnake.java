@@ -1,5 +1,6 @@
 package model;
 
+import javafx.geometry.Point2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,8 +12,8 @@ public class TestSnake {
      */
     @Test
     void testMoveToPositionOneRight() {
-        Snake snake = new Snake(0, 0);
-        snake.moveToPosition(1, 0);
+        Snake snake = new Snake(Point2D.ZERO);
+        snake.moveToDirection(Direction.RIGHT);
         assertEquals(1, snake.getHeadX());
         assertEquals(0, snake.getHeadY());
     }
@@ -22,8 +23,8 @@ public class TestSnake {
      */
     @Test
     void testMoveToPositionOneLeft() {
-        Snake snake = new Snake(0, 0);
-        snake.moveToPosition(-1, 0);
+        Snake snake = new Snake(Point2D.ZERO);
+        snake.moveToDirection(Direction.LEFT);
         assertEquals(-1, snake.getHeadX());
         assertEquals(0, snake.getHeadY());
     }
@@ -33,8 +34,9 @@ public class TestSnake {
      */
     @Test
     void testMoveToPositionOneUp() {
-        Snake snake = new Snake(0, 0);
-        snake.moveToPosition(0, -1);
+        Snake snake = new Snake(Point2D.ZERO);
+        snake.moveToDirection(Direction.UP
+        );
         assertEquals(0, snake.getHeadX());
         assertEquals(-1, snake.getHeadY());
     }
@@ -44,8 +46,8 @@ public class TestSnake {
      */
     @Test
     void testMoveToPositionOneDown() {
-        Snake snake = new Snake(0, 0);
-        snake.moveToPosition(0, 1);
+        Snake snake = new Snake(Point2D.ZERO);
+        snake.moveToDirection(Direction.DOWN);
         assertEquals(0, snake.getHeadX());
         assertEquals(1, snake.getHeadY());
     }
@@ -54,33 +56,17 @@ public class TestSnake {
      * Move following a certain list of moves / Expected coordinates : (2, -2)
      */
     @Test
-    void testMoveToPositionCombination1() {
-        Snake snake = new Snake(0, 0);
-        snake.moveToPosition(1, 0);
-        snake.moveToPosition(2, 0);
-        snake.moveToPosition(2, -1);
-        snake.moveToPosition(2, -2);
+    void testMoveToPositionCombination() {
+        Snake snake = new Snake(Point2D.ZERO);
+        snake.moveToDirection(Direction.UP);
+        snake.moveToDirection(Direction.DOWN);
+        snake.moveToDirection(Direction.LEFT);
+        snake.moveToDirection(Direction.RIGHT);
+        snake.moveToDirection(Direction.RIGHT);
+        snake.moveToDirection(Direction.RIGHT);
+        snake.moveToDirection(Direction.UP);
+        snake.moveToDirection(Direction.UP);
         assertEquals(2, snake.getHeadX());
         assertEquals(-2, snake.getHeadY());
-    }
-
-    /**
-     * Move following a certain list of moves / Expected coordinates : (0, 0)
-     */
-    @Test
-    void testMoveToPositionCombination2() {
-        Snake snake = new Snake(0, 0);
-        snake.moveToPosition(1, 0);
-        snake.moveToPosition(2, 0);
-        snake.moveToPosition(3, 0);
-        snake.moveToPosition(3, 1);
-        snake.moveToPosition(2, 1);
-        snake.moveToPosition(2, 0);
-        snake.moveToPosition(2, -1);
-        snake.moveToPosition(1, -1);
-        snake.moveToPosition(1, 0);
-        snake.moveToPosition(0, 0);
-        assertEquals(0, snake.getHeadX());
-        assertEquals(0, snake.getHeadY());
     }
 }

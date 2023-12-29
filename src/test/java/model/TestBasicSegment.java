@@ -1,5 +1,6 @@
 package model;
 
+import javafx.geometry.Point2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,10 +12,10 @@ public class TestBasicSegment {
      */
     @Test
     void testMoveToPositionOneRight() {
-        BasicSegment seg = new BasicSegment(0, 0);
-        seg.moveToPosition(1, 0);
-        assertEquals(1, seg.getCurrentX());
-        assertEquals(0, seg.getCurrentY());
+        BasicSegment seg = new BasicSegment(Point2D.ZERO, Direction.RIGHT);
+        seg.moveToDirection(Direction.RIGHT);
+        assertEquals(1, seg.getX());
+        assertEquals(0, seg.getY());
     }
 
     /**
@@ -22,10 +23,10 @@ public class TestBasicSegment {
      */
     @Test
     void testMoveToPositionOneLeft() {
-        BasicSegment seg = new BasicSegment(0, 0);
-        seg.moveToPosition(-1, 0);
-        assertEquals(-1, seg.getCurrentX());
-        assertEquals(0, seg.getCurrentY());
+        BasicSegment seg = new BasicSegment(Point2D.ZERO, Direction.LEFT);
+        seg.moveToDirection(Direction.LEFT);
+        assertEquals(-1, seg.getX());
+        assertEquals(0, seg.getY());
     }
 
     /**
@@ -33,10 +34,10 @@ public class TestBasicSegment {
      */
     @Test
     void testMoveToPositionOneUp() {
-        BasicSegment seg = new BasicSegment(0, 0);
-        seg.moveToPosition(0, -1);
-        assertEquals(0, seg.getCurrentX());
-        assertEquals(-1, seg.getCurrentY());
+        BasicSegment seg = new BasicSegment(Point2D.ZERO, Direction.UP);
+        seg.moveToDirection(Direction.UP);
+        assertEquals(0, seg.getX());
+        assertEquals(-1, seg.getY());
     }
 
     /**
@@ -44,43 +45,31 @@ public class TestBasicSegment {
      */
     @Test
     void testMoveToPositionOneDown() {
-        BasicSegment seg = new BasicSegment(0, 0);
-        seg.moveToPosition(0, 1);
-        assertEquals(0, seg.getCurrentX());
-        assertEquals(1, seg.getCurrentY());
+        BasicSegment seg = new BasicSegment(Point2D.ZERO, Direction.DOWN);
+        seg.moveToDirection(Direction.DOWN);
+        assertEquals(0, seg.getX());
+        assertEquals(1, seg.getY());
     }
 
     /**
      * Move following a certain list of moves / Expected coordinates : (2, -2)
      */
     @Test
-    void testMoveToPositionCombination1() {
-        BasicSegment seg = new BasicSegment(0, 0);
-        seg.moveToPosition(1, 0);
-        seg.moveToPosition(2, 0);
-        seg.moveToPosition(2, -1);
-        seg.moveToPosition(2, -2);
-        assertEquals(2, seg.getCurrentX());
-        assertEquals(-2, seg.getCurrentY());
-    }
-
-    /**
-     * Move following a certain list of moves / Expected coordinates : (0, 0)
-     */
-    @Test
-    void testMoveToPositionCombination2() {
-        BasicSegment seg = new BasicSegment(0, 0);
-        seg.moveToPosition(1, 0);
-        seg.moveToPosition(2, 0);
-        seg.moveToPosition(3, 0);
-        seg.moveToPosition(3, 1);
-        seg.moveToPosition(2, 1);
-        seg.moveToPosition(2, 0);
-        seg.moveToPosition(2, -1);
-        seg.moveToPosition(1, -1);
-        seg.moveToPosition(1, 0);
-        seg.moveToPosition(0, 0);
-        assertEquals(0, seg.getCurrentX());
-        assertEquals(0, seg.getCurrentY());
+    void testMoveToPositionCombination() {
+        BasicSegment seg = new BasicSegment(Point2D.ZERO, Direction.DOWN);
+        seg.moveToDirection(Direction.UP);
+        seg.moveToDirection(Direction.DOWN);
+        seg.moveToDirection(Direction.UP);
+        seg.moveToDirection(Direction.DOWN);
+        seg.moveToDirection(Direction.LEFT);
+        seg.moveToDirection(Direction.LEFT);
+        seg.moveToDirection(Direction.RIGHT);
+        seg.moveToDirection(Direction.RIGHT);
+        seg.moveToDirection(Direction.RIGHT);
+        seg.moveToDirection(Direction.RIGHT);
+        seg.moveToDirection(Direction.UP);
+        seg.moveToDirection(Direction.UP);
+        assertEquals(2, seg.getX());
+        assertEquals(-2, seg.getY());
     }
 }

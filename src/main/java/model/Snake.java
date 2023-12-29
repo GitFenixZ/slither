@@ -1,19 +1,21 @@
 package model;
 
+import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
-    private List<Segment> segments;
-
     private static final int DEFAULT_SNAKE_SIZE = 1;
+    private final List<Segment> segments;
 
-    Snake(int headStartX, int headStartY) {
+    Snake(Point2D point) {
         segments = new ArrayList<>();
-        int nextPosY = headStartY;
+
+        Point2D tmp = point;
         for (int i = 0; i < DEFAULT_SNAKE_SIZE; i++) {
-            segments.add(new BasicSegment(headStartX, nextPosY));
-            nextPosY++;
+            segments.add(new BasicSegment(tmp, Direction.RIGHT));
+            tmp = tmp.add(Direction.RIGHT.getCoordinates());
         }
     }
 
@@ -26,28 +28,42 @@ public class Snake {
     }
 
     int getHeadX() {
-        return getHead().getCurrentX();
+        return getHead().getX();
     }
 
     int getHeadY() {
-        return getHead().getCurrentY();
+        return getHead().getY();
     }
 
-    /**
-     * Move the head of the snake to the given position, dragging the rest of the segments with it
-     *
-     * @param x the horizontal coordinate of the head's target position
-     * @param y the vertical coordinate of the head's target position
-     */
-    public void moveToPosition(int x, int y) {
-        int nextDestX = x;
-        int nextDestY = y;
-        for (Segment s : segments) {
-            int tempX = s.getCurrentX();
-            int tempY = s.getCurrentY();
-            s.moveToPosition(nextDestX, nextDestY);
-            nextDestX = tempX;
-            nextDestY = tempY;
+    int getLength() {
+        return segments.size();
+    }
+
+    public void moveToDirection(Direction direction) throws IllegalArgumentException {
+        if (!isValidDirection(direction)) {
+            return;
         }
+
+        Direction tmp;
+        Direction last = direction;
+        for (Segment s : segments) {
+            tmp = s.getDirection();
+            s.moveToDirection(last);
+            last = tmp;
+        }
+    }
+
+    private boolean isValidDirection(Direction direction) throws IllegalArgumentException {
+        if (segments.size() == 1) {
+            return true;
+        }
+
+        return switch (direction) {
+            case UP -> getHead().getDirection() != Direction.DOWN;
+            case DOWN -> getHead().getDirection() != Direction.UP;
+            case LEFT -> getHead().getDirection() != Direction.RIGHT;
+            case RIGHT -> getHead().getDirection() != Direction.LEFT;
+            default -> throw new IllegalArgumentException("Invalid direction");
+        };
     }
 }
