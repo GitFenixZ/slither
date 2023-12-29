@@ -9,7 +9,7 @@ import static org.mockito.Mockito.spy;
 
 class TestGrid {
     @Test
-    void testIsInsideGrid_valid() {
+    void isInsideGrid_Valid() {
         GridModel grid = spy(new TestGridModel());
         for (int row = 0; row < grid.getHeight(); row++) {
             for (int col = 0; col < grid.getWidth(); col++) {
@@ -20,7 +20,7 @@ class TestGrid {
     }
 
     @Test
-    void testIsInsideGrid_invalid() {
+    void isInsideGrid_Invalid() {
         GridModel grid = spy(new TestGridModel());
         for (int row = -10; row <= grid.getHeight() + 10; row++) {
             for (int col = -10; col <= grid.getWidth() + 10; col++) {
@@ -34,7 +34,7 @@ class TestGrid {
     }
 
     @Test
-    void testIsMoveValid_valid() {
+    void isMoveValid_Valid() {
         GridModel grid = spy(new TestGridModel());
         Snake snake = new Snake(new Point2D(5, 5));
         for (Direction direction : Direction.values()) {
@@ -43,7 +43,7 @@ class TestGrid {
     }
 
     @Test
-    void testIsMoveValid_invalid() {
+    void isMoveValid_Invalid() {
         GridModel grid = spy(new TestGridModel());
         Snake snake = new Snake(new Point2D(0, 0));
         assertFalse(grid.isMoveValid(snake, Direction.LEFT));
