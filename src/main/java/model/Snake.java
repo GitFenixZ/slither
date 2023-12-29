@@ -39,7 +39,7 @@ public class Snake {
         return segments.size();
     }
 
-    public void moveToDirection(Direction direction) throws IllegalArgumentException {
+    public void moveToDirection(Direction direction) {
         if (!isValidDirection(direction)) {
             return;
         }
@@ -53,7 +53,7 @@ public class Snake {
         }
     }
 
-    private boolean isValidDirection(Direction direction) throws IllegalArgumentException {
+    private boolean isValidDirection(Direction direction) {
         if (segments.size() == 1) {
             return true;
         }
@@ -63,7 +63,6 @@ public class Snake {
             case DOWN -> getHead().getDirection() != Direction.UP;
             case LEFT -> getHead().getDirection() != Direction.RIGHT;
             case RIGHT -> getHead().getDirection() != Direction.LEFT;
-            default -> throw new IllegalArgumentException("Invalid direction");
         };
     }
 }

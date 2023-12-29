@@ -22,7 +22,6 @@ public enum Direction {
             case DOWN -> new Point2D(0, STEP);
             case LEFT -> new Point2D(-STEP, 0);
             case RIGHT -> new Point2D(STEP, 0);
-            default -> throw new IllegalArgumentException("Invalid direction");
         };
     }
 
@@ -37,7 +36,6 @@ public enum Direction {
             case DOWN -> UP;
             case LEFT -> RIGHT;
             case RIGHT -> LEFT;
-            default -> throw new IllegalArgumentException("Invalid direction");
         };
     }
 
