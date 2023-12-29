@@ -131,6 +131,7 @@ private int time = 0; // Time in seconds since the beginning of the game
 
 - Any code that is not tested will not be accepted
 - The name of the test class must be `Test` followed by the name of the class being tested _e.g._ `TestPlayerImplementation`
+- Test methods must be named following this convention: `testMethodName_CaseName`
 
 - Tests are expected for the majority of functions (not `private`)
 - It is expected that tests be independent of each other (no dependency between tests)

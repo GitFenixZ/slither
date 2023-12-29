@@ -41,7 +41,7 @@ public class Snake {
 
     /**
      * Moves the snake in the specified direction.
-     * 
+     *
      * @param direction the direction in which the snake should move
      */
     public void moveToDirection(Direction direction) {
