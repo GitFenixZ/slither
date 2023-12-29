@@ -1,0 +1,66 @@
+# MegaLinter GitHub Action configuration file
+# More info at https://megalinter.io
+name: Push and PR checker
+
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+        - name: Build with Gradle
+          uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+          with:
+            gradle-version: 8.4
+            arguments: build
+            
+    megalinter:
+      name: Check Format
+      runs-on: ubuntu-latest
+      permissions:
+        # Give the default GITHUB_TOKEN write permission to commit and push, comment issues & post new PR
+        # Remove the ones you do not need
+        contents: write
+        issues: write
+        pull-requests: write
+      steps:
+        # Git Checkout
+        - name: Checkout Code
+          uses: actions/checkout@v3
+          with:
+            token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+            fetch-depth: 0 # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to improve performances
+
+        # MegaLinter
+        - name: Mega-Linter
+          id: ml
+          # You can override MegaLinter flavor used to have faster performances
+          # More info at https://megalinter.io/flavors/
+          uses: oxsecurity/megalinter/flavors/java@v7.7.0
+          env:
+            # All available variables are described in documentation
+            # https://megalinter.io/configuration/
+            VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Validates all source when push on main, else just the git diff with main. Override with true if you always want to lint all sources
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
+            # DISABLE: COPYPASTE,SPELL # Uncomment to disable copy-paste and spell checks
+
+        # Upload MegaLinter artifacts
+        - name: Archive production artifacts
+          if: success() || failure()
+          uses: actions/upload-artifact@v3
+          with:
+            name: MegaLinter reports
+            path: |
+              megalinter-reports
+              mega-linter.log
