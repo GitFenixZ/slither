@@ -62,6 +62,13 @@ public class Snake {
         }
     }
 
+    /**
+     * Checks if the given direction is valid for the snake's movement.
+     * A snake can't move in a direction opposite to its direction.
+     *
+     * @param direction the direction to be checked
+     * @return true if the direction is valid, false otherwise
+     */
     private boolean isValidDirection(Direction direction) {
         if (segments.size() == 1) {
             return true;
