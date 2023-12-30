@@ -15,7 +15,7 @@ public class Snake {
         Point2D tmp = point;
         for (int i = 0; i < DEFAULT_SNAKE_SIZE; i++) {
             segments.add(new BasicSegment(tmp, Direction.RIGHT));
-            tmp = tmp.add(Direction.RIGHT.getCoordinates());
+            tmp = tmp.add(Direction.RIGHT.getVectorOfDirection());
         }
     }
 

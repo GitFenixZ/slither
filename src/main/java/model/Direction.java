@@ -12,11 +12,11 @@ public enum Direction {
     public static final int STEP = 1; // The step increment for each move.
 
     /**
-     * Returns the coordinates matching the current direction.
+     * Returns the vector matching the current direction.
      *
-     * @return coordinates matching the current direction
+     * @return the vector matching the current direction.
      */
-    public Point2D getCoordinates() {
+    public Point2D getVectorOfDirection() {
         return switch (this) {
             case UP -> new Point2D(0, -STEP);
             case DOWN -> new Point2D(0, STEP);

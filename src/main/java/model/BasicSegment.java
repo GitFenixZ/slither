@@ -36,7 +36,7 @@ class BasicSegment implements Segment {
     @Override
     public void moveToDirection(Direction direction) {
         this.direction = direction;
-        coordinates = coordinates.add(direction.getCoordinates());
+        coordinates = coordinates.add(direction.getVectorOfDirection());
     }
 
     @Override
