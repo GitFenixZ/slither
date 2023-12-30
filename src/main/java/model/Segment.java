@@ -3,7 +3,7 @@ package model;
 import javafx.geometry.Point2D;
 
 /**
- * Interafce representing {@link Snake}'s segment in a slither game.
+ * Interface representing {@link Snake}'s segment in a slither game.
  */
 public interface Segment {
 
