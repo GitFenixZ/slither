@@ -27,7 +27,7 @@ public class Snake {
         return getSegmentAtIndex(0);
     }
 
-    Point2D getCoordinates() {
+    Point2D getHeadCoordinates() {
         return getHead().getCoordinates();
     }
 

@@ -40,7 +40,7 @@ public interface GridModel {
      * @return true if the move is valid, false otherwise
      */
     default boolean isMoveValid(Snake snake, Direction direction) {
-        Point2D destination = snake.getCoordinates().add(direction.getVectorOfDirection());
+        Point2D destination = snake.getHeadCoordinates().add(direction.getVectorOfDirection());
         return isInsideGrid(destination);
     }
 
