@@ -25,18 +25,4 @@ public enum Direction {
         };
     }
 
-    /**
-     * Returns the opposite direction of the current one.
-     *
-     * @return opposite direction of the current one
-     */
-    public Direction getOpposite() {
-        return switch (this) {
-            case UP -> DOWN;
-            case DOWN -> UP;
-            case LEFT -> RIGHT;
-            case RIGHT -> LEFT;
-        };
-    }
-
 }
