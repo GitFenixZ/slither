@@ -1,31 +1,52 @@
 package model;
 
+import javafx.geometry.Point2D;
+
+/**
+ * Interface representing {@link Snake}'s segment in a slither game.
+ */
 public interface Segment {
-    static final int DEFAULT_MOVE_STEP = 1;
 
-    int getCurrentX();
+    /**
+     * Gets the copy of the coordinates of the segment.
+     *
+     * @return the copy of the coordinates of the segment
+     */
+    Point2D getCoordinates();
 
-    int getCurrentY();
+    /**
+     * Gets the x-coordinate of the segment.
+     *
+     * @return the x-coordinate of the segment
+     */
+    int getX();
 
+    /**
+     * Gets the y-coordinate of the segment.
+     *
+     * @return the y-coordinate of the segment
+     */
+    int getY();
+
+    /**
+     * Gets the direction of the segment.
+     *
+     * @return the direction of the segment
+     */
+    Direction getDirection();
+
+    /**
+     * Moves the segment to the specified direction.
+     *
+     * @param direction the direction to move the segment
+     */
+    void moveToDirection(Direction direction);
+
+    /**
+     * Creates a deep copy of the segment.
+     *
+     * @return a deep copy of the segment
+     */
     Segment copy();
 
-    /**
-     * Without taking the grid into account, check if the target position can be attained
-     *
-     * @param x the horizontal coordinate of the target position
-     * @param y the vertical coordinate of the target position
-     * @return true if the target position can be attained from the current one, false otherwise
-     */
-    default boolean isMoveValid(int x, int y) {
-        return (Math.abs(x - getCurrentX()) == DEFAULT_MOVE_STEP && y - getCurrentY() == 0)
-                || (Math.abs(y - getCurrentY()) == DEFAULT_MOVE_STEP && x - getCurrentX() == 0);
-    }
-
-    /**
-     * Move a segment to a given position
-     *
-     * @param x the horizontal coordinate of the new position
-     * @param y the vertical coordinate of the new position
-     */
-    void moveToPosition(int x, int y);
 }

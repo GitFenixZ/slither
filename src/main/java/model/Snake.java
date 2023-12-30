@@ -1,19 +1,21 @@
 package model;
 
+import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
-    private List<Segment> segments;
-
     private static final int DEFAULT_SNAKE_SIZE = 1;
+    private final List<Segment> segments;
 
-    Snake(int headStartX, int headStartY) {
+    Snake(Point2D point) {
         segments = new ArrayList<>();
-        int nextPosY = headStartY;
+
+        Point2D tmp = point;
         for (int i = 0; i < DEFAULT_SNAKE_SIZE; i++) {
-            segments.add(new BasicSegment(headStartX, nextPosY));
-            nextPosY++;
+            segments.add(new BasicSegment(tmp, Direction.RIGHT));
+            tmp = tmp.add(Direction.RIGHT.getVectorOfDirection());
         }
     }
 
@@ -25,29 +27,58 @@ public class Snake {
         return getSegmentAtIndex(0);
     }
 
+    Point2D getHeadCoordinates() {
+        return getHead().getCoordinates();
+    }
+
     int getHeadX() {
-        return getHead().getCurrentX();
+        return getHead().getX();
     }
 
     int getHeadY() {
-        return getHead().getCurrentY();
+        return getHead().getY();
+    }
+
+    int getLength() {
+        return segments.size();
     }
 
     /**
-     * Move the head of the snake to the given position, dragging the rest of the segments with it
+     * Moves the snake in the specified direction.
      *
-     * @param x the horizontal coordinate of the head's target position
-     * @param y the vertical coordinate of the head's target position
+     * @param direction the direction in which the snake should move
      */
-    public void moveToPosition(int x, int y) {
-        int nextDestX = x;
-        int nextDestY = y;
-        for (Segment s : segments) {
-            int tempX = s.getCurrentX();
-            int tempY = s.getCurrentY();
-            s.moveToPosition(nextDestX, nextDestY);
-            nextDestX = tempX;
-            nextDestY = tempY;
+    public void moveToDirection(Direction direction) {
+        if (!isValidDirection(direction)) {
+            return;
         }
+
+        Direction tmp;
+        Direction last = direction;
+        for (Segment s : segments) {
+            tmp = s.getDirection();
+            s.moveToDirection(last);
+            last = tmp;
+        }
+    }
+
+    /**
+     * Checks if the given direction is valid for the snake's movement.
+     * A snake can't move in a direction opposite to its direction.
+     *
+     * @param direction the direction to be checked
+     * @return true if the direction is valid, false otherwise
+     */
+    private boolean isValidDirection(Direction direction) {
+        if (segments.size() == 1) {
+            return true;
+        }
+
+        return switch (direction) {
+            case UP -> getHead().getDirection() != Direction.DOWN;
+            case DOWN -> getHead().getDirection() != Direction.UP;
+            case LEFT -> getHead().getDirection() != Direction.RIGHT;
+            case RIGHT -> getHead().getDirection() != Direction.LEFT;
+        };
     }
 }
