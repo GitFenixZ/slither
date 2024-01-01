@@ -12,7 +12,7 @@ public class Snake {
     Snake(Point2D point) {
         segments = new ArrayList<>();
 
-        Point2D tmp = point;
+        Point2D tmp = new Point2D(point.getX(), point.getY());
         for (int i = 0; i < DEFAULT_SNAKE_SIZE; i++) {
             segments.add(new BasicSegment(tmp, Direction.RIGHT));
             tmp = tmp.add(Direction.RIGHT.getVectorOfDirection());
