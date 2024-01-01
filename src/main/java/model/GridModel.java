@@ -9,6 +9,13 @@ import model.player.Player;
 public interface GridModel {
 
     /**
+     * Gets the player of the grid.
+     *
+     * @return the player of the grid
+     */
+    Player getPlayer();
+
+    /**
      * Gets the width of the grid.
      *
      * @return the width of the grid
@@ -51,6 +58,12 @@ public interface GridModel {
      */
     default boolean isMoveValid(Player player, Direction direction) {
         return true;
+    }
+
+    default boolean isGameOver() {
+        return !isInsideGrid(getPlayer().
+                getSnake().
+                getHeadCoordinates());
     }
 
 }
