@@ -1,20 +1,18 @@
 package model.player;
 
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import model.Direction;
 import model.Snake;
 
 public class PlayerImplementation implements Player {
-
-    private final Point2D coordinates;
     private final Color color;
-    private final Snake snake;
     private final String name;
+    private final Snake snake;
 
-    public PlayerImplementation(Color color, String name) {
-        this.color = color;
-        this.name = name;
-        this.snake = new Snake(color);
+    public PlayerImplementation(Builder builder) {
+        this.color = builder.color;
+        this.name = builder.name;
+        this.snake = builder.snake;
     }
 
     @Override
@@ -23,12 +21,36 @@ public class PlayerImplementation implements Player {
     }
 
     @Override
-    public Snake getSnake() {
-        return snake;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public Snake getSnake() {
+        return snake.copy();
+    }
+
+    @Override
+    public void moveToDirection(Direction direction) {
+        snake.moveToDirection(direction);
+    }
+
+    public static class Builder extends PlayerBuilder<PlayerImplementation> {
+        @Override
+        public PlayerImplementation build() {
+            if (name == null) {
+                name = "Default_Player";
+            }
+
+            if (color == null) {
+                color = Color.BLUE;
+            }
+
+            if (snake == null) {
+                snake = new Snake.Builder().build();
+            }
+
+            return new PlayerImplementation(this);
+        }
     }
 }

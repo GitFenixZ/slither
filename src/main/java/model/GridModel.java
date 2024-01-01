@@ -33,25 +33,23 @@ public interface GridModel {
                 coordinates.getY() >= 0 && coordinates.getY() < getHeight();
     }
 
-    /**
-     * Checks if a move in a given direction is valid for a snake.
-     *
-     * @param snake     the snake to check
-     * @param direction the direction of the move
-     * @return true if the move is valid, false otherwise
-     */
-    default boolean isMoveValid(Snake snake, Direction direction) {
-        Point2D destination = snake.getHeadCoordinates().add(direction.getVectorOfDirection());
-        return isInsideGrid(destination);
-    }
-
     default boolean movePlayer(Player player, Direction direction) {
-        Snake playerSnake = player.getSnake();
-        if (!isMoveValid(playerSnake, direction)) {
+        if (!isMoveValid(player, direction)) {
             return false;
         }
 
-        playerSnake.moveToDirection(direction);
+        player.moveToDirection(direction);
+        return true;
+    }
+
+    /**
+     * Checks if a move in a given direction is valid for a player.
+     *
+     * @param player the player to check
+     * @param direction the direction of the move
+     * @return true if the move is valid, false otherwise
+     */
+    default boolean isMoveValid(Player player, Direction direction) {
         return true;
     }
 

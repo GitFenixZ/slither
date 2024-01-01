@@ -11,25 +11,19 @@ public class Snake {
     private final List<Segment> segments;
 
     Snake(Builder builder) {
-        color = builder.color;
-        segments = new ArrayList<>();
-
-        Point2D tmp = new Point2D(builder.coordinates.getX(), builder.coordinates.getY());
-        for (int i = 0; i < builder.length; i++) {
-            segments.add(new BasicSegment(tmp, Direction.RIGHT));
-            tmp = tmp.add(Direction.RIGHT.getVectorOfDirection());
-        }
+        this.segments = builder.segments;
+        this.color = builder.color;
     }
 
     public Color getColor() {
         return color;
     }
 
-    Segment getSegmentAtIndex(int i) {
+    public Segment getSegmentAtIndex(int i) {
         return segments.get(i).copy();
     }
 
-    Segment getHead() {
+    public Segment getHead() {
         return getSegmentAtIndex(0);
     }
 
@@ -37,15 +31,15 @@ public class Snake {
         return getHead().getCoordinates();
     }
 
-    int getHeadX() {
+    public int getHeadX() {
         return getHead().getX();
     }
 
-    int getHeadY() {
+    public int getHeadY() {
         return getHead().getY();
     }
 
-    int getLength() {
+    public int getLength() {
         return segments.size();
     }
 
@@ -55,10 +49,6 @@ public class Snake {
      * @param direction the direction in which the snake should move
      */
     public void moveToDirection(Direction direction) {
-        if (!isValidDirection(direction)) {
-            return;
-        }
-
         Direction tmp;
         Direction last = direction;
         for (Segment s : segments) {
@@ -68,33 +58,26 @@ public class Snake {
         }
     }
 
-    /**
-     * Checks if the given direction is valid for the snake's movement.
-     * A snake can't move in a direction opposite to its direction.
-     *
-     * @param direction the direction to be checked
-     * @return true if the direction is valid, false otherwise
-     */
-    private boolean isValidDirection(Direction direction) {
-        if (segments.size() == 1) {
-            return true;
-        }
-
-        return switch (direction) {
-            case UP -> getHead().getDirection() != Direction.DOWN;
-            case DOWN -> getHead().getDirection() != Direction.UP;
-            case LEFT -> getHead().getDirection() != Direction.RIGHT;
-            case RIGHT -> getHead().getDirection() != Direction.LEFT;
-        };
+    public Snake copy() {
+        return new Builder()
+                .segments(segments)
+                .coordinates(getHeadCoordinates())
+                .color(getColor())
+                .build();
     }
 
     public static class Builder {
-        private int length = 1; // Default length is 1
+        private static final int DEFAULT_SNAKE_LENGTH = 1;
+        // TODO: fix default spawning coordinates to middle of the grid
+        private List<Segment> segments = null;
         private Point2D coordinates = Point2D.ZERO;
-        private Color color = Color.BLUE;
+        private Color color = Color.GREEN;
 
-        public Builder length(int length) {
-            this.length = length;
+        public Builder segments(List<Segment> segments) {
+            List<Segment> deepCopy = new ArrayList<>();
+            segments.forEach(segment -> deepCopy.add(segment.copy()));
+            this.segments = deepCopy;
+
             return this;
         }
 
@@ -109,7 +92,24 @@ public class Snake {
         }
 
         public Snake build() {
+            if (segments == null) {
+                segments = buildDefaultSegments();
+            }
+
             return new Snake(this);
+        }
+
+        private List<Segment> buildDefaultSegments() {
+            List<Segment> res = new ArrayList<>();
+
+            Point2D tmp = new Point2D(coordinates.getX(), coordinates.getY());
+            for (int i = 0; i < DEFAULT_SNAKE_LENGTH; i++) {
+                res.add(new BasicSegment(tmp, Direction.RIGHT));
+                // TODO: fix direction (the tails should follow the head)
+                tmp = tmp.add(Direction.RIGHT.getVectorOfDirection());
+            }
+
+            return res;
         }
     }
 }
