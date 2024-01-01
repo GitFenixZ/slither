@@ -1,6 +1,7 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.player.Player;
 
 /**
  * Interface representing a grid in a slither game.
@@ -42,6 +43,16 @@ public interface GridModel {
     default boolean isMoveValid(Snake snake, Direction direction) {
         Point2D destination = snake.getHeadCoordinates().add(direction.getVectorOfDirection());
         return isInsideGrid(destination);
+    }
+
+    default boolean movePlayer(Player player, Direction direction) {
+        Snake playerSnake = player.getSnake();
+        if (!isMoveValid(playerSnake, direction)) {
+            return false;
+        }
+
+        playerSnake.moveToDirection(direction);
+        return true;
     }
 
 }

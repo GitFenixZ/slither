@@ -1,12 +1,15 @@
 package model;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
+    // TODO: Builder pattern for Player and Snake
     private static final int DEFAULT_SNAKE_SIZE = 1;
+    private final Color color;
     private final List<Segment> segments;
 
     Snake(Point2D point) {
@@ -80,5 +83,25 @@ public class Snake {
             case LEFT -> getHead().getDirection() != Direction.RIGHT;
             case RIGHT -> getHead().getDirection() != Direction.LEFT;
         };
+    }
+
+    public static class Builder {
+        private Point2D point;
+        private Color color;
+
+        public Builder setPoint(Point2D point) {
+            this.point = new Point2D(point.getX(), point.getY());
+            return this;
+        }
+
+        public Builder setColor(Color color) {
+            this.color = color;
+            return this;
+        }
+
+        public Snake build() {
+            Snake snake = new Snake(point);
+            return snake;
+        }
     }
 }
