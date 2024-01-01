@@ -7,19 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Snake {
-    // TODO: Builder pattern for Player and Snake
-    private static final int DEFAULT_SNAKE_SIZE = 1;
     private final Color color;
     private final List<Segment> segments;
 
-    Snake(Point2D point) {
+    Snake(Builder builder) {
+        color = builder.color;
         segments = new ArrayList<>();
 
-        Point2D tmp = new Point2D(point.getX(), point.getY());
-        for (int i = 0; i < DEFAULT_SNAKE_SIZE; i++) {
+        Point2D tmp = new Point2D(builder.coordinates.getX(), builder.coordinates.getY());
+        for (int i = 0; i < builder.length; i++) {
             segments.add(new BasicSegment(tmp, Direction.RIGHT));
             tmp = tmp.add(Direction.RIGHT.getVectorOfDirection());
         }
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     Segment getSegmentAtIndex(int i) {
@@ -86,22 +89,27 @@ public class Snake {
     }
 
     public static class Builder {
-        private Point2D point;
-        private Color color;
+        private int length = 1; // Default length is 1
+        private Point2D coordinates = Point2D.ZERO;
+        private Color color = Color.BLUE;
 
-        public Builder setPoint(Point2D point) {
-            this.point = new Point2D(point.getX(), point.getY());
+        public Builder length(int length) {
+            this.length = length;
             return this;
         }
 
-        public Builder setColor(Color color) {
+        public Builder coordinates(Point2D coordinates) {
+            this.coordinates = new Point2D(coordinates.getX(), coordinates.getY());
+            return this;
+        }
+
+        public Builder color(Color color) {
             this.color = color;
             return this;
         }
 
         public Snake build() {
-            Snake snake = new Snake(point);
-            return snake;
+            return new Snake(this);
         }
     }
 }

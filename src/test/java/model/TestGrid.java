@@ -36,7 +36,7 @@ class TestGrid {
     @Test
     void isMoveValid_Valid() {
         GridModel grid = spy(new TestGridModel());
-        Snake snake = new Snake(new Point2D(5, 5));
+        Snake snake = new Snake.Builder().coordinates(new Point2D(5, 5)).build();
         for (Direction direction : Direction.values()) {
             assertTrue(grid.isMoveValid(snake, direction));
         }
@@ -45,11 +45,11 @@ class TestGrid {
     @Test
     void isMoveValid_Invalid() {
         GridModel grid = spy(new TestGridModel());
-        Snake snake = new Snake(new Point2D(0, 0));
+        Snake snake = new Snake.Builder().coordinates(new Point2D(0, 0)).build();
         assertFalse(grid.isMoveValid(snake, Direction.LEFT));
         assertFalse(grid.isMoveValid(snake, Direction.UP));
 
-        snake = new Snake(new Point2D(grid.getWidth() - 1, grid.getHeight() - 1));
+        snake = new Snake.Builder().coordinates(new Point2D(grid.getWidth() - 1, grid.getHeight() - 1)).build();
         assertFalse(grid.isMoveValid(snake, Direction.RIGHT));
         assertFalse(grid.isMoveValid(snake, Direction.DOWN));
     }

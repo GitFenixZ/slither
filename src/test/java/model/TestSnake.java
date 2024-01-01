@@ -1,6 +1,5 @@
 package model;
 
-import javafx.geometry.Point2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +11,7 @@ public class TestSnake {
      */
     @Test
     void moveToDirection_OneRight() {
-        Snake snake = new Snake(Point2D.ZERO);
+        Snake snake = new Snake.Builder().build();
         snake.moveToDirection(Direction.RIGHT);
         assertEquals(1, snake.getHeadX());
         assertEquals(0, snake.getHeadY());
@@ -23,7 +22,7 @@ public class TestSnake {
      */
     @Test
     void moveToDirection_OneLeft() {
-        Snake snake = new Snake(Point2D.ZERO);
+        Snake snake = new Snake.Builder().build();
         snake.moveToDirection(Direction.LEFT);
         assertEquals(-1, snake.getHeadX());
         assertEquals(0, snake.getHeadY());
@@ -34,7 +33,7 @@ public class TestSnake {
      */
     @Test
     void moveToDirection_OneUp() {
-        Snake snake = new Snake(Point2D.ZERO);
+        Snake snake = new Snake.Builder().build();
         snake.moveToDirection(Direction.UP
         );
         assertEquals(0, snake.getHeadX());
@@ -46,7 +45,7 @@ public class TestSnake {
      */
     @Test
     void moveToDirection_OneDown() {
-        Snake snake = new Snake(Point2D.ZERO);
+        Snake snake = new Snake.Builder().build();
         snake.moveToDirection(Direction.DOWN);
         assertEquals(0, snake.getHeadX());
         assertEquals(1, snake.getHeadY());
@@ -57,7 +56,7 @@ public class TestSnake {
      */
     @Test
     void moveToDirection_Combination() {
-        Snake snake = new Snake(Point2D.ZERO);
+        Snake snake = new Snake.Builder().build();
         snake.moveToDirection(Direction.UP);
         snake.moveToDirection(Direction.DOWN);
         snake.moveToDirection(Direction.LEFT);
