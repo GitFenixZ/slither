@@ -68,7 +68,7 @@ public class Snake {
      * Creates a deep copy of the snake.
      *
      * @return a deep copy of the snake
-     * @apiNote This methods relies on the {@link Builder} class to create the deep copy.
+     * @apiNote This method relies on the {@link Builder} class to create the deep copy.
      */
     public Snake copy() {
         return new Builder()
@@ -88,7 +88,7 @@ public class Snake {
         /**
          * Sets the segments of the snake by deep copying the given list of segments.
          *
-         * @param segments
+         * @param segments the segments of the snake
          * @return the {@link Snake} {@link Builder}'s instance
          */
         public Builder segments(List<Segment> segments) {
