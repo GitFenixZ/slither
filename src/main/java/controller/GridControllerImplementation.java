@@ -40,9 +40,7 @@ public class GridControllerImplementation implements GridController {
 
     @Override
     public void movePlayer(Player player, Direction direction) {
-        if (model.isGameOver()) {
-            return;
-        }
+        // TODO: If game is over, do nothing
 
         if (model.movePlayer(player, direction)) {
             view.update();
