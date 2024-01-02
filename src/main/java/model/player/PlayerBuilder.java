@@ -53,9 +53,8 @@ public abstract class PlayerBuilder<T extends Player> {
     /**
      * Builds the player subclass object.
      *
-     * @apiNote DO NOT FORGET to handle default values.
-     *
      * @return the built player subclass object
+     * @apiNote DO NOT FORGET to handle default values.
      */
     public abstract T build();
 }
