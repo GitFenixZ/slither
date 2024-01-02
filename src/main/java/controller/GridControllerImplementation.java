@@ -5,27 +5,31 @@ import model.GridModel;
 import model.GridModelImplementation;
 import model.player.Player;
 import model.player.PlayerImplementation;
+import view.GridView;
 
 public class GridControllerImplementation implements GridController {
 
+    private Player player;
     private GridModel model;
     private GridView view;
-    private KeyboardController keyboardController;
 
     public GridControllerImplementation() {
         initGame();
         initController();
     }
-
-    public void initController() {
-        keyboardController = new KeyboardController(this);
-    }
-
     private void initGame() {
         Player player = new PlayerImplementation.Builder().build();
 
         model = new GridModelImplementation(player);
-        view = new GridViewImplementation(model);
+        view = new GridView(model);
+    }
+
+    private void initController() {
+        KeyboardController.initKeyboardController(model, view, this);
+    }
+
+    public GridModel getModel() {
+        return model;
     }
 
     @Override

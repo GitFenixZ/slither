@@ -1,30 +1,26 @@
 package controller;
 
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
+import model.Direction;
+import model.GridModel;
+import view.GridView;
+
 public class KeyboardController {
-    private GridController controller;
-    private GridView view;
-
-    public KeyboardController(GridController controller) {
-        this.controller = controller;
-        this.view = controller.getView();
-
-        initKeyboardController();
-    }
-
-    public void initKeyboardController() {
-        view.getScene().setOnKeyPressed(event -> {
+    public static void initKeyboardController(GridModel model, GridView view, GridController controller) {
+        view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
             switch (event.getCode()) {
                 case UP:
-                    controller.movePlayer(controller.getPlayer(), Direction.UP);
+                    controller.movePlayer(model.getPlayer(), Direction.UP);
                     break;
                 case DOWN:
-                    controller.movePlayer(controller.getPlayer(), Direction.DOWN);
+                    controller.movePlayer(model.getPlayer(), Direction.DOWN);
                     break;
                 case LEFT:
-                    controller.movePlayer(controller.getPlayer(), Direction.LEFT);
+                    controller.movePlayer(model.getPlayer(), Direction.LEFT);
                     break;
                 case RIGHT:
-                    controller.movePlayer(controller.getPlayer(), Direction.RIGHT);
+                    controller.movePlayer(model.getPlayer(), Direction.RIGHT);
                     break;
                 default:
                     break;

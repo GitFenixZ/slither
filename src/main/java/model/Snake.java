@@ -43,6 +43,12 @@ public class Snake {
         return segments.size();
     }
 
+    public List<Segment> getSegments() {
+        List<Segment> res = new ArrayList<>();
+        segments.forEach(segment -> res.add(segment.copy()));
+        return res;
+    }
+
     /**
      * Moves the snake in the specified direction.
      *
