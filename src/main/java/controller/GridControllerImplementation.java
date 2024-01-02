@@ -9,7 +9,6 @@ import view.GridView;
 
 public class GridControllerImplementation implements GridController {
 
-    private Player player;
     private GridModel model;
     private GridView view;
 
