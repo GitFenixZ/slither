@@ -64,6 +64,12 @@ public class Snake {
         }
     }
 
+    /**
+     * Creates a deep copy of the snake.
+     *
+     * @return a deep copy of the snake
+     * @apiNote This methods relies on the {@link Builder} class to create the deep copy.
+     */
     public Snake copy() {
         return new Builder()
                 .segments(segments)
@@ -79,6 +85,12 @@ public class Snake {
         private Point2D coordinates = Point2D.ZERO;
         private Color color = Color.GREEN;
 
+        /**
+         * Sets the segments of the snake by deep copying the given list of segments.
+         *
+         * @param segments
+         * @return the {@link Snake} {@link Builder}'s instance
+         */
         public Builder segments(List<Segment> segments) {
             List<Segment> deepCopy = new ArrayList<>();
             segments.forEach(segment -> deepCopy.add(segment.copy()));

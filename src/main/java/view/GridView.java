@@ -24,8 +24,14 @@ public class GridView {
         update();
     }
 
+    /**
+     * Initializes the GridView
+     */
     private void init() {
+        // Create the scene
         scene = new Scene(getPane(), model.getWidth() * GridView.CELL_SIZE, model.getHeight() * GridView.CELL_SIZE);
+
+        // Set the canvas dimensions
         canvas.setWidth(model.getWidth() * CELL_SIZE);
         canvas.setHeight(model.getHeight() * CELL_SIZE);
     }
@@ -38,7 +44,7 @@ public class GridView {
 
     public void update() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear the canvas
 
         drawPlayer(gc);
     }

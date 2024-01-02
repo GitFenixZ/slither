@@ -29,6 +29,7 @@ public class GridControllerImplementation implements GridController {
         KeyboardController.initKeyboardController(model, view, this);
     }
 
+    // TODO: Missing @Override annotation
     public GridModel getModel() {
         return model;
     }

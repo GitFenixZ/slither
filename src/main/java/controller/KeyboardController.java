@@ -6,6 +6,15 @@ import model.GridModel;
 import view.GridView;
 
 public class KeyboardController {
+
+
+    /**
+     * Initializes the keyboard controller by adding event handlers for key presses.
+     *
+     * @param model      The grid model.
+     * @param view       The grid view.
+     * @param controller The grid controller.
+     */
     public static void initKeyboardController(GridModel model, GridView view, GridController controller) {
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
             switch (event.getCode()) {

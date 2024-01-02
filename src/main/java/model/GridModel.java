@@ -60,6 +60,12 @@ public interface GridModel {
         return true;
     }
 
+    /**
+     * Checks if the game is over.
+     *
+     * @return true if the game is over, false otherwise.
+     * @apiNote The game is considered over if the snake's head is outside the grid.
+     */
     default boolean isGameOver() {
         return !isInsideGrid(getPlayer().
                 getSnake().
