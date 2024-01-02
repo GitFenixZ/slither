@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import model.GridModel;
 import model.Segment;
 
@@ -38,7 +37,6 @@ public class GridView {
     }
 
     public void update() {
-        // TODO: Improve performance by only updating the cells that changed
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 

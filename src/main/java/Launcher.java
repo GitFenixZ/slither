@@ -1,15 +1,14 @@
 import controller.GridController;
 import controller.GridControllerImplementation;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import model.GridModel;
 import view.GridView;
 
 public class Launcher extends Application {
+
+    public static void main(String[] args) {
+        launch();
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -21,9 +20,5 @@ public class Launcher extends Application {
         primaryStage.setScene(view.getScene());
         primaryStage.setTitle("Game");
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

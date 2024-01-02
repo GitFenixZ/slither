@@ -52,7 +52,7 @@ public interface GridModel {
     /**
      * Checks if a move in a given direction is valid for a player.
      *
-     * @param player the player to check
+     * @param player    the player to check
      * @param direction the direction of the move
      * @return true if the move is valid, false otherwise
      */

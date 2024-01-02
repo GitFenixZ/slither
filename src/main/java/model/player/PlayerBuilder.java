@@ -1,6 +1,5 @@
 package model.player;
 
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import model.Snake;
 

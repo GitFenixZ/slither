@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.KeyCode;
 import model.Direction;
 import model.GridModel;
 import view.GridView;

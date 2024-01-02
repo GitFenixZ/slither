@@ -17,6 +17,7 @@ public class GridControllerImplementation implements GridController {
         initGame();
         initController();
     }
+
     private void initGame() {
         Player player = new PlayerImplementation.Builder().build();
 
