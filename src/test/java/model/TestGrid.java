@@ -1,6 +1,7 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.player.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -34,9 +35,13 @@ class TestGrid {
     }
 
     private static class TestGridModel implements GridModel {
-
         private static final int WIDTH = 25;
         private static final int HEIGHT = 25;
+
+        @Override
+        public Player getPlayer() {
+            return null;
+        }
 
         @Override
         public int getWidth() {
