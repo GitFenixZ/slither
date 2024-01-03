@@ -80,9 +80,8 @@ public class Snake {
 
     public static class Builder {
         private static final int DEFAULT_SNAKE_LENGTH = 1;
-        // TODO: fix default spawning coordinates to middle of the grid
         private List<Segment> segments = null;
-        private Point2D coordinates = Point2D.ZERO;
+        private Point2D coordinates = new Point2D((int) (GridModelImplementation.WIDTH / 2), (int) (GridModelImplementation.HEIGHT / 2));
         private Color color = Color.GREEN;
 
         /**

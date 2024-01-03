@@ -4,8 +4,8 @@ import model.player.Player;
 
 public class GridModelImplementation implements GridModel {
 
-    private static final int WIDTH = 32;
-    private static final int HEIGHT = 18;
+    public static final int WIDTH = 32;
+    public static final int HEIGHT = 18;
     private final Player player;
 
     public GridModelImplementation(Player player) {
