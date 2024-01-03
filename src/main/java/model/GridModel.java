@@ -1,11 +1,19 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.player.Player;
 
 /**
  * Interface representing a grid in a slither game.
  */
 public interface GridModel {
+
+    /**
+     * Gets the player of the grid.
+     *
+     * @return the player of the grid
+     */
+    Player getPlayer();
 
     /**
      * Gets the width of the grid.
@@ -32,16 +40,36 @@ public interface GridModel {
                 coordinates.getY() >= 0 && coordinates.getY() < getHeight();
     }
 
+    default boolean movePlayer(Player player, Direction direction) {
+        if (!isMoveValid(player, direction)) {
+            return false;
+        }
+
+        player.moveToDirection(direction);
+        return true;
+    }
+
     /**
-     * Checks if a move in a given direction is valid for a snake.
+     * Checks if a move in a given direction is valid for a player.
      *
-     * @param snake     the snake to check
+     * @param player    the player to check
      * @param direction the direction of the move
      * @return true if the move is valid, false otherwise
      */
-    default boolean isMoveValid(Snake snake, Direction direction) {
-        Point2D destination = snake.getHeadCoordinates().add(direction.getVectorOfDirection());
-        return isInsideGrid(destination);
+    default boolean isMoveValid(Player player, Direction direction) {
+        return true;
+    }
+
+    /**
+     * Checks if the game is over.
+     *
+     * @return true if the game is over, false otherwise.
+     * @apiNote The game is considered over if the snake's head is outside the grid.
+     */
+    default boolean isGameOver() {
+        return !isInsideGrid(getPlayer().
+                getSnake().
+                getHeadCoordinates());
     }
 
 }

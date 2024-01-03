@@ -1,6 +1,7 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.player.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,31 +34,14 @@ class TestGrid {
         }
     }
 
-    @Test
-    void isMoveValid_Valid() {
-        GridModel grid = spy(new TestGridModel());
-        Snake snake = new Snake(new Point2D(5, 5));
-        for (Direction direction : Direction.values()) {
-            assertTrue(grid.isMoveValid(snake, direction));
-        }
-    }
-
-    @Test
-    void isMoveValid_Invalid() {
-        GridModel grid = spy(new TestGridModel());
-        Snake snake = new Snake(new Point2D(0, 0));
-        assertFalse(grid.isMoveValid(snake, Direction.LEFT));
-        assertFalse(grid.isMoveValid(snake, Direction.UP));
-
-        snake = new Snake(new Point2D(grid.getWidth() - 1, grid.getHeight() - 1));
-        assertFalse(grid.isMoveValid(snake, Direction.RIGHT));
-        assertFalse(grid.isMoveValid(snake, Direction.DOWN));
-    }
-
     private static class TestGridModel implements GridModel {
-
         private static final int WIDTH = 25;
         private static final int HEIGHT = 25;
+
+        @Override
+        public Player getPlayer() {
+            return null;
+        }
 
         @Override
         public int getWidth() {
