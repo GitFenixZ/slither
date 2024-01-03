@@ -3,6 +3,7 @@ package controller;
 import model.Direction;
 import model.GridModel;
 import model.GridModelImplementation;
+import model.player.ComputerImplementation;
 import model.player.Player;
 import model.player.PlayerImplementation;
 import view.GridView;
@@ -14,17 +15,19 @@ public class GridControllerImplementation implements GridController {
 
     public GridControllerImplementation() {
         initGame();
-        initController();
+        initControllers();
     }
 
     private void initGame() {
         Player player = new PlayerImplementation.Builder().build();
+        Player computer = new ComputerImplementation.Builder().build();
 
-        model = new GridModelImplementation(player);
+        model = new GridModelImplementation(player, computer);
         view = new GridView(model);
     }
 
-    private void initController() {
+    private void initControllers() {
+        ComputerController.initComputerController(model, view, this);
         KeyboardController.initKeyboardController(model, view, this);
     }
 

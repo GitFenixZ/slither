@@ -25,7 +25,7 @@ public class ComputerController {
                         case 2 -> Direction.LEFT;
                         default -> Direction.RIGHT;
                     };
-                    controller.movePlayer(model.getPlayer(), randDir);
+                    controller.movePlayer(model.getComputer(), randDir);
                     break;
                 default:
                     break;

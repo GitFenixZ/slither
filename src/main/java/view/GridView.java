@@ -47,12 +47,22 @@ public class GridView {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear the canvas
 
         drawPlayer(gc);
+        drawComputer(gc);
     }
 
     private void drawPlayer(GraphicsContext gc) {
         List<Segment> segments = model.getPlayer().getSnake().getSegments();
         segments.forEach((Segment segment) -> {
                     gc.setFill(model.getPlayer().getColor());
+                    gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                }
+        );
+    }
+
+    private void drawComputer(GraphicsContext gc) {
+        List<Segment> segments = model.getComputer().getSnake().getSegments();
+        segments.forEach((Segment segment) -> {
+                    gc.setFill(model.getComputer().getColor());
                     gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 }
         );

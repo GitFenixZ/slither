@@ -9,11 +9,18 @@ import model.player.Player;
 public interface GridModel {
 
     /**
-     * Gets the player of the grid.
+     * Gets the human player of the grid.
      *
      * @return the player of the grid
      */
     Player getPlayer();
+
+    /**
+     * Gets the computer-controlled player of the grid.
+     *
+     * @return the player of the grid
+     */
+    Player getComputer();
 
     /**
      * Gets the width of the grid.
