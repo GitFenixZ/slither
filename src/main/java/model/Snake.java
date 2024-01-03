@@ -122,8 +122,7 @@ public class Snake {
             Point2D tmp = new Point2D(coordinates.getX(), coordinates.getY());
             for (int i = 0; i < DEFAULT_SNAKE_LENGTH; i++) {
                 res.add(new BasicSegment(tmp, Direction.RIGHT));
-                // TODO: fix direction (the tails should follow the head)
-                tmp = tmp.add(Direction.RIGHT.getVectorOfDirection());
+                tmp = tmp.add(Direction.LEFT.getVectorOfDirection());
             }
 
             return res;
