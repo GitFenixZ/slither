@@ -19,16 +19,16 @@ public class KeyboardController {
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
             switch (event.getCode()) {
                 case UP:
-                    controller.movePlayer(model.getPlayer(), Direction.UP);
+                    controller.movePlayer(model.getHumanPlayer(), Direction.UP);
                     break;
                 case DOWN:
-                    controller.movePlayer(model.getPlayer(), Direction.DOWN);
+                    controller.movePlayer(model.getHumanPlayer(), Direction.DOWN);
                     break;
                 case LEFT:
-                    controller.movePlayer(model.getPlayer(), Direction.LEFT);
+                    controller.movePlayer(model.getHumanPlayer(), Direction.LEFT);
                     break;
                 case RIGHT:
-                    controller.movePlayer(model.getPlayer(), Direction.RIGHT);
+                    controller.movePlayer(model.getHumanPlayer(), Direction.RIGHT);
                     break;
                 default:
                     break;

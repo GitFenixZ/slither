@@ -9,11 +9,18 @@ import model.player.Player;
 public interface GridModel {
 
     /**
-     * Gets the player of the grid.
+     * Gets the human player of the grid.
      *
      * @return the player of the grid
      */
-    Player getPlayer();
+    Player getHumanPlayer();
+
+    /**
+     * Gets the computer-controlled player of the grid.
+     *
+     * @return the player of the grid
+     */
+    Player getComputerPlayer();
 
     /**
      * Gets the width of the grid.
@@ -67,7 +74,7 @@ public interface GridModel {
      * @apiNote The game is considered over if the snake's head is outside the grid.
      */
     default boolean isGameOver() {
-        return !isInsideGrid(getPlayer().
+        return !isInsideGrid(getHumanPlayer().
                 getSnake().
                 getHeadCoordinates());
     }
