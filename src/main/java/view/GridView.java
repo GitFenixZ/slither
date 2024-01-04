@@ -59,7 +59,7 @@ public class GridView {
                     gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 
             if (model.getPlayer().getSnake().getHead().equals(segment)) {
-                gc.setStroke(Color.GREY);
+                gc.setStroke(Color.GOLD);
             } else {
                 gc.setStroke(Color.BLACK);
             }
