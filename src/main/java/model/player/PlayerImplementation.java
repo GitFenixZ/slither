@@ -1,7 +1,9 @@
 package model.player;
 
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import model.Direction;
+import model.GridModelImplementation;
 import model.Snake;
 
 public abstract class PlayerImplementation implements Player {
