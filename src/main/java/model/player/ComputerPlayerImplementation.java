@@ -4,12 +4,13 @@ import javafx.scene.paint.Color;
 import model.Direction;
 import model.Snake;
 
-public class PlayerImplementation implements Player {
+public class ComputerPlayerImplementation implements Player {
+
     private final Color color;
     private final String name;
     private final Snake snake;
 
-    public PlayerImplementation(Builder builder) {
+    public ComputerPlayerImplementation(ComputerPlayerImplementation.Builder builder) {
         this.color = builder.color;
         this.name = builder.name;
         this.snake = builder.snake;
@@ -35,22 +36,22 @@ public class PlayerImplementation implements Player {
         snake.moveToDirection(direction);
     }
 
-    public static class Builder extends PlayerBuilder<PlayerImplementation> {
+    public static class Builder extends PlayerBuilder<ComputerPlayerImplementation> {
         @Override
-        public PlayerImplementation build() {
+        public ComputerPlayerImplementation build() {
             if (name == null) {
-                name = "Default_Player";
+                name = "CPU";
             }
 
             if (color == null) {
-                color = Color.BLUE;
+                color = Color.RED;
             }
 
             if (snake == null) {
                 snake = new Snake.Builder().build();
             }
 
-            return new PlayerImplementation(this);
+            return new ComputerPlayerImplementation(this);
         }
     }
 }

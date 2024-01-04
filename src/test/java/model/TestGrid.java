@@ -39,7 +39,12 @@ class TestGrid {
         private static final int HEIGHT = 25;
 
         @Override
-        public Player getPlayer() {
+        public Player getHumanPlayer() {
+            return null;
+        }
+
+        @Override
+        public Player getComputerPlayer() {
             return null;
         }
 

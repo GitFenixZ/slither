@@ -11,6 +11,13 @@ import java.util.Random;
 
 public class ComputerController {
 
+    /**
+     * Initializes the computer controller by adding event handlers for key presses.
+     *
+     * @param model      The grid model.
+     * @param view       The grid view.
+     * @param controller The grid controller.
+     */
     public static void initComputerController(GridModel model, GridView view, GridController controller) {
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
             switch (event.getCode()) {
@@ -20,7 +27,7 @@ public class ComputerController {
                 case RIGHT:
                     Direction randomDirection = getRandomDirection(model);
                     if (randomDirection != null) {
-                        controller.movePlayer(model.getComputer(), randomDirection);
+                        controller.movePlayer(model.getComputerPlayer(), randomDirection);
                     }
                     break;
                 default:
@@ -29,6 +36,12 @@ public class ComputerController {
         });
     }
 
+    /**
+     * Chooses a random valid direction for the computer-controlled snake
+     *
+     * @param model The grid model
+     * @return a random valid direction
+     */
     private static Direction getRandomDirection(GridModel model) {
         List<Direction> possibleDirections = getPossibleDirections(model);
         int nbOfPossibleDirections = possibleDirections.size();
@@ -39,9 +52,15 @@ public class ComputerController {
         return null;
     }
 
+    /**
+     * List all the valid directions for the computer-controlled snake
+     *
+     * @param model The grid model
+     * @return list containing all valid directions
+     */
     private static List<Direction> getPossibleDirections(GridModel model) {
-        int currentComputerPositionX = model.getComputer().getSnake().getHeadX();
-        int currentComputerPositionY = model.getComputer().getSnake().getHeadY();
+        int currentComputerPositionX = model.getComputerPlayer().getSnake().getHeadX();
+        int currentComputerPositionY = model.getComputerPlayer().getSnake().getHeadY();
         List<Direction> possibleDirections = new ArrayList<>();
         if (currentComputerPositionY != 0) {
             possibleDirections.add(Direction.UP);

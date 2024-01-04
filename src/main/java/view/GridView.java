@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import model.GridModel;
 import model.Segment;
+import model.player.Player;
 
 import java.util.List;
 
@@ -46,23 +47,14 @@ public class GridView {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear the canvas
 
-        drawPlayer(gc);
-        drawComputer(gc);
+        drawPlayer(gc, model.getHumanPlayer());
+        drawPlayer(gc, model.getComputerPlayer());
     }
 
-    private void drawPlayer(GraphicsContext gc) {
-        List<Segment> segments = model.getPlayer().getSnake().getSegments();
+    private void drawPlayer(GraphicsContext gc, Player player) {
+        List<Segment> segments = player.getSnake().getSegments();
         segments.forEach((Segment segment) -> {
-                    gc.setFill(model.getPlayer().getColor());
-                    gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-                }
-        );
-    }
-
-    private void drawComputer(GraphicsContext gc) {
-        List<Segment> segments = model.getComputer().getSnake().getSegments();
-        segments.forEach((Segment segment) -> {
-                    gc.setFill(model.getComputer().getColor());
+            gc.setFill(player.getColor());
                     gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 }
         );
