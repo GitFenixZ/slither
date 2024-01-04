@@ -2,6 +2,8 @@ package model;
 
 import javafx.geometry.Point2D;
 
+import java.util.Objects;
+
 class BasicSegment implements Segment {
     private Point2D coordinates;
     private Direction direction;
@@ -43,4 +45,13 @@ class BasicSegment implements Segment {
     public Segment copy() {
         return new BasicSegment(coordinates, direction);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasicSegment that = (BasicSegment) o;
+        return Objects.equals(coordinates, that.coordinates) && direction == that.direction;
+    }
+
 }
