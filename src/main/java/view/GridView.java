@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import model.GridModel;
 import model.Segment;
 import model.player.Player;
@@ -56,6 +57,10 @@ public class GridView {
         segments.forEach((Segment segment) -> {
             gc.setFill(player.getColor());
                     gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+            gc.setStroke(Color.BLACK);
+            gc.setLineWidth(2.5);
+            gc.strokeRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 }
         );
     }
