@@ -1,11 +1,13 @@
 package controller;
 
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import model.Direction;
 import model.GridModel;
 import view.GridView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -59,21 +61,14 @@ public class ComputerController {
      * @return list containing all valid directions
      */
     private static List<Direction> getPossibleDirections(GridModel model) {
-        int currentComputerPositionX = model.getComputerPlayer().getSnake().getHeadX();
-        int currentComputerPositionY = model.getComputerPlayer().getSnake().getHeadY();
-        List<Direction> possibleDirections = new ArrayList<>();
-        if (currentComputerPositionY != 0) {
-            possibleDirections.add(Direction.UP);
-        }
-        if (currentComputerPositionY != model.getHeight() - 1) {
-            possibleDirections.add(Direction.DOWN);
-        }
-        if (currentComputerPositionX != 0) {
-            possibleDirections.add(Direction.LEFT);
-        }
-        if (currentComputerPositionX != model.getWidth() - 1) {
-            possibleDirections.add(Direction.RIGHT);
-        }
+        List<Direction> possibleDirections =
+                new ArrayList<>(Arrays.asList(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT));
+        possibleDirections.removeIf((Direction d) -> {
+            Point2D snakeCoordinates = model.getComputerPlayer().getSnake().getHead().getCoordinates();
+            Point2D futurePosition = snakeCoordinates.add(d.getVectorOfDirection());
+            return !model.isInsideGrid(futurePosition);
+        });
+
         return possibleDirections;
     }
 
