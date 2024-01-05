@@ -3,6 +3,7 @@ package model;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class Snake {
 
     public Segment getHead() {
         return getSegmentAtIndex(0);
+    }
+
+    public Segment getTail() {
+        return getSegmentAtIndex(getLength() - 1);
     }
 
     Point2D getHeadCoordinates() {
@@ -76,6 +81,22 @@ public class Snake {
                 .coordinates(getHeadCoordinates())
                 .color(getColor())
                 .build();
+    }
+
+    public void grow() {
+        Segment tail = getTail();
+        Direction tailDirection = tail.getDirection();
+
+        Point2D newTailCoordinates = tail.getCoordinates().add(
+                tailDirection.getOppositeDirection().getVectorOfDirection()
+        );
+
+        Segment newTail = new BasicSegment(
+                newTailCoordinates,
+                tailDirection
+        );
+
+        segments.add(newTail);
     }
 
     public static class Builder {

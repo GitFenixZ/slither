@@ -57,5 +57,20 @@ class TestGrid {
         public int getHeight() {
             return HEIGHT;
         }
+
+        @Override
+        public Point2D getFoodCoordinates() {
+            return null;
+        }
+
+        @Override
+        public void deleteFood() {
+
+        }
+
+        @Override
+        public void spawnFood() {
+
+        }
     }
 }

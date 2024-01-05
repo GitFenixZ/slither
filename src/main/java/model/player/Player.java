@@ -1,7 +1,9 @@
 package model.player;
 
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import model.Direction;
+import model.Segment;
 import model.Snake;
 
 public interface Player {
@@ -37,4 +39,12 @@ public interface Player {
      */
     void moveToDirection(Direction direction);
 
+    default void grow() {
+        getSnake().grow();
+    }
+
+    default boolean isOnCoordinates(Point2D coordinates) {
+        return getSnake().getSegments().stream().anyMatch(
+                (Segment segment) -> segment.getCoordinates().equals(coordinates));
+    }
 }

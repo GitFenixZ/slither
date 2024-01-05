@@ -50,10 +50,12 @@ public class GridView {
 
         drawPlayer(gc, model.getHumanPlayer());
         drawPlayer(gc, model.getComputerPlayer());
+        drawFood(gc);
     }
 
     private void drawPlayer(GraphicsContext gc, Player player) {
         List<Segment> segments = player.getSnake().getSegments();
+        int count = 0;
         segments.forEach((Segment segment) -> {
             gc.setFill(player.getColor());
                     gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -65,8 +67,27 @@ public class GridView {
             }
             gc.setLineWidth(2.5);
             gc.strokeRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+                    String arrow;
+                    switch (segment.getDirection()) {
+                        case UP -> arrow = "↑";
+                        case DOWN -> arrow = "↓";
+                        case LEFT -> arrow = "←";
+                        case RIGHT -> arrow = "→";
+                        default -> arrow = "X";
+                    }
+
+                    // Draw the direction of the segment
+                    gc.setFill(Color.BLACK);
+                    gc.fillText(arrow, segment.getX() * CELL_SIZE + CELL_SIZE / 2, segment.getY() * CELL_SIZE + CELL_SIZE / 2);
                 }
         );
+    }
+
+    private void drawFood(GraphicsContext gc) {
+        gc.setFill(Color.PURPLE);
+        gc.fillOval(model.getFoodCoordinates().getX() * CELL_SIZE, model.getFoodCoordinates().getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
     }
 
     public Scene getScene() {

@@ -53,8 +53,32 @@ public interface GridModel {
         }
 
         player.moveToDirection(direction);
+        handleFood(player);
+
         return true;
     }
+
+    default void handleFood(Player player) {
+        if (!isFoodEaten(player)) {
+            return;
+        }
+
+        deleteFood();
+        player.grow();
+        spawnFood();
+    }
+
+    default boolean isFoodEaten(Player player) {
+        return getFoodCoordinates().equals(player.getSnake().getHeadCoordinates());
+    }
+
+    Point2D getFoodCoordinates();
+
+    void deleteFood();
+
+    void spawnFood();
+
+
 
     /**
      * Checks if a move in a given direction is valid for a player.
