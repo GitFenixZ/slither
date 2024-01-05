@@ -49,6 +49,14 @@ public class GridControllerImplementation implements GridController {
             view.update();
         }
 
+        for (Player p : model.getPlayers()) {
+            if (player.getSnake().collidedWith(p.getSnake())) {
+                view.gameOver(p.getName());
+                break;
+            }
+        }
+
+
         // TODO: Handle game over (Player died ?) to show game over view
     }
 }

@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface GridModel {
 
+    public List<Player> getPlayers();
+
     /**
      * Gets the human player of the grid.
      *

@@ -82,6 +82,15 @@ public class Snake {
                 .build();
     }
 
+    public boolean collidedWith(Snake other) {
+        for (Segment s : other.segments) {
+            if (!s.equals(getHead()) && getHeadCoordinates().equals(s.getCoordinates())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void grow() {
         Segment tail = getTail();
         Direction tailDirection = tail.getDirection();
