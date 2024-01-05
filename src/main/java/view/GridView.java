@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.GridModel;
 import model.Segment;
@@ -22,12 +23,9 @@ public class GridView {
     private final GridModel model;
     private Scene scene;
 
-    private final Stage primaryStage;
-
-    public GridView(GridModel model, Stage primaryStage) {
+    public GridView(GridModel model) {
         this.canvas = new Canvas();
         this.model = model;
-        this.primaryStage = primaryStage;
 
         init();
         update();
@@ -58,14 +56,14 @@ public class GridView {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear the canvas
 
-        drawPlayer(gc, model.getHumanPlayer());
-        drawPlayer(gc, model.getComputerPlayer());
+        for (Player player : model.getPlayers()) {
+            drawPlayer(gc, player);
+        }
         drawFood(gc);
     }
 
     private void drawPlayer(GraphicsContext gc, Player player) {
         List<Segment> segments = player.getSnake().getSegments();
-        int count = 0;
         segments.forEach((Segment segment) -> {
                     gc.setFill(player.getColor());
                     gc.fillRect(
@@ -119,7 +117,8 @@ public class GridView {
     }
 
     public void gameOver(String winner) {
-        StackPane stackPane = new StackPane();
+        update();
+        StackPane stackPane = (StackPane) scene.getRoot();
 
         VBox vbox = new VBox(10);
         vbox.setAlignment(Pos.CENTER);
@@ -127,13 +126,13 @@ public class GridView {
         Label gameOverLabel = new Label("Game Over");
         Label winnerLabel = new Label(winner + " wins");
 
+        gameOverLabel.setFont(new Font(80));
+        winnerLabel.setFont(new Font(40));
+
         vbox.getChildren().add(gameOverLabel);
         vbox.getChildren().add(winnerLabel);
 
         stackPane.getChildren().add(vbox);
-
-        scene = new Scene(stackPane, model.getWidth() * CELL_SIZE, model.getHeight() * CELL_SIZE);
-        primaryStage.setScene(scene);
     }
 
 }

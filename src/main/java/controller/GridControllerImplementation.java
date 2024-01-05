@@ -8,7 +8,14 @@ import model.player.Human;
 import model.player.Player;
 import view.GridView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class GridControllerImplementation implements GridController {
+    private Phase phase;
+    private List<HumanPlayerImplementation> humanPlayers;
+    private List<ComputerPlayerImplementation> computerPlayers;
 
     private GridModel model;
     private GridView view;
@@ -50,13 +57,14 @@ public class GridControllerImplementation implements GridController {
         }
 
         for (Player p : model.getPlayers()) {
-            if (player.getSnake().collidedWith(p.getSnake())) {
-                view.gameOver(p.getName());
-                break;
+            if (!p.equals(player) && player.getSnake().collidedWith(p.getSnake())) {
+                model.getPlayers().remove(player);
+                if (model.getPlayers().size() == 1) {
+                    view.gameOver(model.getPlayers().get(0).getName());
+                    phase = Phase.GAME_OVER;
+                    break;
+                }
             }
         }
-
-
-        // TODO: Handle game over (Player died ?) to show game over view
     }
 }

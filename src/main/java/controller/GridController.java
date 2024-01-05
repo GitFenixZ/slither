@@ -10,6 +10,13 @@ import view.GridView;
  */
 public interface GridController {
 
+    enum Phase {
+        PLAYING,
+        GAME_OVER
+    }
+
+    Phase getPhase();
+
     /**
      * Gets the model associated with the grid controller.
      *

@@ -13,7 +13,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Create the controller
-        GridController controller = new GridControllerImplementation(primaryStage);
+        GridController controller = new GridControllerImplementation();
         GridView view = controller.getView();
 
         // Set up the stage with the initialized view

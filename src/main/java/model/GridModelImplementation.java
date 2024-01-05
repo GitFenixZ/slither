@@ -15,15 +15,11 @@ public class GridModelImplementation implements GridModel {
 
     private final List<Player> players;
 
-    private final Player human;
-    private final Player computer;
     private final Food food;
 
     public GridModelImplementation(Player human, Player computer) {
         this.food = new Food(this);
         spawnFood();
-        this.human = human;
-        this.computer = computer;
 
         players = new ArrayList<>(Arrays.asList(human, computer));
     }
@@ -31,16 +27,6 @@ public class GridModelImplementation implements GridModel {
     @Override
     public List<Player> getPlayers() {
         return players;
-    }
-
-    @Override
-    public Player getHumanPlayer() {
-        return human;
-    }
-
-    @Override
-    public Player getComputerPlayer() {
-        return computer;
     }
 
     @Override

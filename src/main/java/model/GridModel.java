@@ -12,21 +12,7 @@ import java.util.List;
  */
 public interface GridModel {
 
-    public List<Player> getPlayers();
-
-    /**
-     * Gets the human player of the grid.
-     *
-     * @return the player of the grid
-     */
-    Player getHumanPlayer();
-
-    /**
-     * Gets the computer-controlled player of the grid.
-     *
-     * @return the player of the grid
-     */
-    Player getComputerPlayer();
+    List<Player> getPlayers();
 
     /**
      * Gets the width of the grid.
@@ -192,18 +178,6 @@ public interface GridModel {
      */
     default boolean isMoveValid(Player player, Direction direction) {
         return true;
-    }
-
-    /**
-     * Checks if the game is over.
-     *
-     * @return true if the game is over, false otherwise.
-     * @apiNote The game is considered over if the snake's head is outside the grid.
-     */
-    default boolean isGameOver() {
-        return !isInsideGrid(getHumanPlayer().
-                getSnake().
-                getHeadCoordinates());
     }
 
 }
