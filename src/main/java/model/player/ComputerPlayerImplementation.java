@@ -28,7 +28,7 @@ public class ComputerPlayerImplementation implements Player {
 
     @Override
     public Snake getSnake() {
-        return snake.copy();
+        return snake;
     }
 
     @Override

@@ -21,9 +21,12 @@ public interface Player {
     String getName();
 
     /**
-     * Returns a deep copy of the snake.
+     * Returns the snake.
      *
-     * @return a deep copy of the snake
+     * @return the snake
+     * @apiNote be careful when using this method,
+     * as it returns a reference to the original snake.
+     * Any changes made to the snake will affect the original snake.
      */
     Snake getSnake();
 
