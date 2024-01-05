@@ -9,9 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.spy;
 
 class TestGrid {
+    GridModel grid = spy(TestGridModel.class);
+
     @Test
     void isInsideGrid_Valid() {
-        GridModel grid = spy(new TestGridModel());
         for (int row = 0; row < grid.getHeight(); row++) {
             for (int col = 0; col < grid.getWidth(); col++) {
                 Point2D coordinates = new Point2D(row, col);
@@ -22,7 +23,6 @@ class TestGrid {
 
     @Test
     void isInsideGrid_Invalid() {
-        GridModel grid = spy(new TestGridModel());
         for (int row = -10; row <= grid.getHeight() + 10; row++) {
             for (int col = -10; col <= grid.getWidth() + 10; col++) {
                 if (row >= 0 && row < grid.getHeight() && col >= 0 && col < grid.getWidth()) {
