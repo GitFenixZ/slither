@@ -1,10 +1,14 @@
 package view;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.GridModel;
 import model.Segment;
 import model.player.Player;
@@ -18,9 +22,12 @@ public class GridView {
     private final GridModel model;
     private Scene scene;
 
-    public GridView(GridModel model) {
+    private final Stage primaryStage;
+
+    public GridView(GridModel model, Stage primaryStage) {
         this.canvas = new Canvas();
         this.model = model;
+        this.primaryStage = primaryStage;
 
         init();
         update();
@@ -109,6 +116,24 @@ public class GridView {
 
     public Scene getScene() {
         return scene;
+    }
+
+    public void gameOver(String winner) {
+        StackPane stackPane = new StackPane();
+
+        VBox vbox = new VBox(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        Label gameOverLabel = new Label("Game Over");
+        Label winnerLabel = new Label(winner + " wins");
+
+        vbox.getChildren().add(gameOverLabel);
+        vbox.getChildren().add(winnerLabel);
+
+        stackPane.getChildren().add(vbox);
+
+        scene = new Scene(stackPane, model.getWidth() * CELL_SIZE, model.getHeight() * CELL_SIZE);
+        primaryStage.setScene(scene);
     }
 
 }
