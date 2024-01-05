@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.spy;
 
-class TestGrid {
-    GridModel grid = spy(TestGridModel.class);
+class TestIsInsideGrid {
+    GridModel grid = spy(DummyGridModel.class);
 
     @Test
     void isInsideGrid_Valid() {
@@ -34,7 +34,7 @@ class TestGrid {
         }
     }
 
-    private static class TestGridModel implements GridModel {
+    private static class DummyGridModel implements GridModel {
         private static final int WIDTH = 25;
         private static final int HEIGHT = 25;
 
