@@ -11,6 +11,13 @@ import java.util.List;
 public interface Player {
 
     /**
+     * Returns the player's id
+     *
+     * @return the player's id
+     */
+    int getId();
+
+    /**
      * Returns the color of the player.
      *
      * @return the color of the player
