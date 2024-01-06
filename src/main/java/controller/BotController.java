@@ -63,44 +63,6 @@ public class BotController {
         return randomDirection;
     }
 
-
-    /**
-     * Chooses a random direction from a list
-     *
-     * @param directions The list of directions to choose from
-     * @return a random valid direction
-     */
-    private static Direction getRandomDirection(List<Direction> directions) {
-        int nbOfPossibleDirections = directions.size();
-        if (nbOfPossibleDirections != 0) {
-            Random rand = new Random();
-            return directions.get(rand.nextInt(nbOfPossibleDirections));
-        }
-        return null;
-    }
-
-    /**
-     * Lists the safe-from-other-snakes directions from a list of directions
-     *
-     * @param model              The grid model
-     * @param player             The player to move
-     * @param possibleDirections The list of directions to filter
-     * @return a list containing the safe directions to choose
-     */
-    private static List<Direction> getSurvivingDirections(GridModel model,
-                                                        ComputerPlayerImplementation player,
-                                                        List<Direction> possibleDirections) {
-        List<Direction> survivingDirections = new ArrayList<>(possibleDirections);
-        List<Point2D> dangerCells = getAllDangerZones(model, player);
-
-        survivingDirections.removeIf((Direction d) -> {
-            Point2D arrivalCell = player.getSnake().getHead().getCoordinates().add(d.getVectorOfDirection());
-            return dangerCells.contains(arrivalCell);
-        });
-
-        return survivingDirections;
-    }
-
     /**
      * List all the valid directions for the computer-controlled snake
      *
@@ -121,6 +83,28 @@ public class BotController {
     }
 
     /**
+     * Lists the safe-from-other-snakes directions from a list of directions
+     *
+     * @param model              The grid model
+     * @param player             The player to move
+     * @param possibleDirections The list of directions to filter
+     * @return a list containing the safe directions to choose
+     */
+    private static List<Direction> getSurvivingDirections(GridModel model,
+                                                          ComputerPlayerImplementation player,
+                                                          List<Direction> possibleDirections) {
+        List<Direction> survivingDirections = new ArrayList<>(possibleDirections);
+        List<Point2D> dangerCells = getAllDangerZones(model, player);
+
+        survivingDirections.removeIf((Direction d) -> {
+            Point2D arrivalCell = player.getSnake().getHead().getCoordinates().add(d.getVectorOfDirection());
+            return dangerCells.contains(arrivalCell);
+        });
+
+        return survivingDirections;
+    }
+
+    /**
      * Gets all cells presenting danger for the specified player
      *
      * @param model  The grid model
@@ -136,6 +120,21 @@ public class BotController {
             }
         }
         return dangerCells;
+    }
+
+    /**
+     * Chooses a random direction from a list
+     *
+     * @param directions The list of directions to choose from
+     * @return a random valid direction
+     */
+    private static Direction getRandomDirection(List<Direction> directions) {
+        int nbOfPossibleDirections = directions.size();
+        if (nbOfPossibleDirections != 0) {
+            Random rand = new Random();
+            return directions.get(rand.nextInt(nbOfPossibleDirections));
+        }
+        return null;
     }
 
 }
