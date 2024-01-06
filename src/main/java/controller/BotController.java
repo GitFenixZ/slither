@@ -19,12 +19,15 @@ public class BotController {
      * Initializes the computer controller by adding event handlers for key presses.
      *
      * @param model      The grid model.
+     * @param player     The player to control
      * @param view       The grid view.
      * @param controller The grid controller.
      */
-    public static void initComputerController(GridModel model, ComputerPlayerImplementation player, GridView view, GridController controller) {
+    public static void initComputerController(GridModel model,
+                                              ComputerPlayerImplementation player,
+                                              GridView view, GridController controller) {
+
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
-            if (controller.getPhase() == GridController.Phase.PLAYING) {
                 switch (event.getCode()) {
                     case UP:
                     case DOWN:
@@ -37,11 +40,17 @@ public class BotController {
                         break;
                     default:
                         break;
-                }
             }
         });
     }
 
+    /**
+     * Choose a random direction, trying to avoid other snakes
+     *
+     * @param model  The grid model
+     * @param player The player to move
+     * @return a direction avoiding another snake if possible
+     */
     private static Direction chooseDirection(GridModel model, ComputerPlayerImplementation player) {
         List<Direction> possibleDirections = getPossibleDirections(model, player);
         List<Direction> survivingDirections = getSurvivingDirections(model, player, possibleDirections);
@@ -56,12 +65,16 @@ public class BotController {
 
 
     /**
-     * Chooses a random valid direction for the computer-controlled snake
+     * Chooses a random direction from a list
      *
-     * @param model The grid model
+     * @param model         The grid model
+     * @param player        The player to move
+     * @param directions    The list of directions to choose from
      * @return a random valid direction
      */
-    private static Direction getRandomDirection(GridModel model, ComputerPlayerImplementation player, List<Direction> directions) {
+    private static Direction getRandomDirection(GridModel model,
+                                                ComputerPlayerImplementation player,
+                                                List<Direction> directions) {
         int nbOfPossibleDirections = directions.size();
         if (nbOfPossibleDirections != 0) {
             Random rand = new Random();
@@ -70,7 +83,17 @@ public class BotController {
         return null;
     }
 
-    private static List<Direction> getSurvivingDirections(GridModel model, ComputerPlayerImplementation player, List<Direction> possibleDirections) {
+    /**
+     * Lists the safe-from-other-snakes directions from a list of directions
+     *
+     * @param model              The grid model
+     * @param player             The player to move
+     * @param possibleDirections The list of directions to filter
+     * @return a list containing the safe directions to choose
+     */
+    private static List<Direction> getSurvivingDirections(GridModel model,
+                                                          ComputerPlayerImplementation player,
+                                                          List<Direction> possibleDirections) {
         List<Direction> survivingDirections = new ArrayList<>(possibleDirections);
         List<Point2D> dangerCells = getAllDangerZones(model, player);
 
@@ -85,7 +108,8 @@ public class BotController {
     /**
      * List all the valid directions for the computer-controlled snake
      *
-     * @param model The grid model
+     * @param model     The grid model
+     * @param player    The player to move
      * @return list containing all valid directions
      */
     private static List<Direction> getPossibleDirections(GridModel model, ComputerPlayerImplementation player) {
@@ -100,6 +124,13 @@ public class BotController {
         return possibleDirections;
     }
 
+    /**
+     * Gets all cells presenting danger for the specified player
+     *
+     * @param model  The grid model
+     * @param player The player to move
+     * @return The list containing all dangerous cells for the specified player
+     */
     private static List<Point2D> getAllDangerZones(GridModel model, ComputerPlayerImplementation player) {
         List<Point2D> dangerCells = new ArrayList<>();
         List<Player> players = model.getPlayers();

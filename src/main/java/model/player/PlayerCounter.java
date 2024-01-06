@@ -1,5 +1,8 @@
 package model.player;
 
+/**
+ * This class allows the assignment of unique Ids to each player of the game
+ */
 public class PlayerCounter {
     private static int count = 0;
 

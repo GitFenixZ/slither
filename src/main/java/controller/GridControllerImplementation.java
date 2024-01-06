@@ -27,6 +27,8 @@ public class GridControllerImplementation implements GridController {
     }
 
     private void initGame() {
+        phase = Phase.PLAYING;
+
         Player human = new Human.Builder().build();
         Player computer = new Bot.Builder().build();
 
@@ -51,21 +53,22 @@ public class GridControllerImplementation implements GridController {
 
     @Override
     public void movePlayer(Player player, Direction direction) {
-        // TODO: If game is over, do nothing
+        if (phase == Phase.PLAYING) {
 
-        if (model.movePlayer(player, direction)) {
-            view.update();
-        }
+            if (model.movePlayer(player, direction)) {
+                view.update();
+            }
 
-        Iterator<Player> iter = model.getPlayers().iterator();
-        while (iter.hasNext()) {
-            Player p = iter.next();
-            if (!p.equals(player) && player.getSnake().collidedWith(p.getSnake())) {
-                model.getPlayers().remove(player);
-                if (model.getPlayers().size() == 1) {
-                    view.gameOver(model.getPlayers().get(0).getName());
-                    phase = Phase.GAME_OVER;
-                    break;
+            Iterator<Player> iter = model.getPlayers().iterator();
+            while (iter.hasNext()) {
+                Player p = iter.next();
+                if (!p.equals(player) && player.getSnake().collidedWith(p.getSnake())) {
+                    model.getPlayers().remove(player);
+                    if (model.getPlayers().size() == 1) {
+                        view.gameOver(model.getPlayers().get(0).getName());
+                        phase = Phase.GAME_OVER;
+                        break;
+                    }
                 }
             }
         }

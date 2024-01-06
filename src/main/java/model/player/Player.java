@@ -49,6 +49,11 @@ public interface Player {
      */
     void moveToDirection(Direction direction);
 
+    /**
+     * Get the list of positions where an opponent might collide with this object next turn
+     *
+     * @return the list of positions where an opponent might collide with this object next turn
+     */
     default List<Point2D> getDangerZone() {
         List<Point2D> dangerZone = new ArrayList<>();
         Snake snake = getSnake();

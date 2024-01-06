@@ -15,7 +15,9 @@ public class HumanController {
      * @param view       The grid view.
      * @param controller The grid controller.
      */
-    public static void initKeyboardController(HumanPlayerImplementation player, GridView view, GridController controller) {
+    public static void initKeyboardController(HumanPlayerImplementation player,
+                                              GridView view,
+                                              GridController controller) {
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
             if (controller.getPhase() == GridController.Phase.PLAYING) {
                 switch (event.getCode()) {

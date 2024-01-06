@@ -15,6 +15,11 @@ public interface GridController {
         GAME_OVER
     }
 
+    /**
+     * Gets the current phase of play
+     *
+     * @return the current phase of play
+     */
     Phase getPhase();
 
     /**

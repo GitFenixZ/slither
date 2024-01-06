@@ -116,7 +116,6 @@ public class GridView {
     }
 
     public void gameOver(String winner) {
-        update();
         StackPane stackPane = (StackPane) scene.getRoot();
 
         VBox vbox = new VBox(10);

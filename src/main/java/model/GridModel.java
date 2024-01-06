@@ -12,6 +12,11 @@ import java.util.List;
  */
 public interface GridModel {
 
+    /**
+     * Gets the grid's players' list
+     *
+     * @return the grid's players' list
+     */
     List<Player> getPlayers();
 
     /**

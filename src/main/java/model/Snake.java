@@ -82,6 +82,12 @@ public class Snake {
                 .build();
     }
 
+    /**
+     * Checks if the head of the snake entered in collision with another snake
+     *
+     * @param other the opponent snake
+     * @return true if the head of the snake is colliding with the other
+     */
     public boolean collidedWith(Snake other) {
         for (Segment s : other.segments) {
             if (!s.equals(getHead()) && getHeadCoordinates().equals(s.getCoordinates())) {
