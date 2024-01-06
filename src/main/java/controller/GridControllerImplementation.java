@@ -10,6 +10,7 @@ import view.GridView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class GridControllerImplementation implements GridController {
@@ -56,7 +57,9 @@ public class GridControllerImplementation implements GridController {
             view.update();
         }
 
-        for (Player p : model.getPlayers()) {
+        Iterator<Player> iter = model.getPlayers().iterator();
+        while (iter.hasNext()) {
+            Player p = iter.next();
             if (!p.equals(player) && player.getSnake().collidedWith(p.getSnake())) {
                 model.getPlayers().remove(player);
                 if (model.getPlayers().size() == 1) {

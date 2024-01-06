@@ -5,6 +5,7 @@ import javafx.scene.input.KeyEvent;
 import model.Direction;
 import model.GridModel;
 import model.player.ComputerPlayerImplementation;
+import model.player.Player;
 import view.GridView;
 
 import java.util.ArrayList;
@@ -29,9 +30,9 @@ public class BotController {
                     case DOWN:
                     case LEFT:
                     case RIGHT:
-                        Direction randomDirection = getRandomDirection(model, player);
-                        if (randomDirection != null) {
-                            controller.movePlayer(player, randomDirection);
+                        Direction direction = chooseDirection(model, player);
+                        if (direction != null) {
+                            controller.movePlayer(player, direction);
                         }
                         break;
                     default:
@@ -41,20 +42,44 @@ public class BotController {
         });
     }
 
+    private static Direction chooseDirection(GridModel model, ComputerPlayerImplementation player) {
+        List<Direction> possibleDirections = getPossibleDirections(model, player);
+        List<Direction> survivingDirections = getSurvivingDirections(model, player, possibleDirections);
+
+        Direction randomDirection = getRandomDirection(model, player, possibleDirections);
+        if (!survivingDirections.isEmpty()) {
+            randomDirection = getRandomDirection(model, player, survivingDirections);
+        }
+
+        return randomDirection;
+    }
+
+
     /**
      * Chooses a random valid direction for the computer-controlled snake
      *
      * @param model The grid model
      * @return a random valid direction
      */
-    private static Direction getRandomDirection(GridModel model, ComputerPlayerImplementation player) {
-        List<Direction> possibleDirections = getPossibleDirections(model, player);
-        int nbOfPossibleDirections = possibleDirections.size();
+    private static Direction getRandomDirection(GridModel model, ComputerPlayerImplementation player, List<Direction> directions) {
+        int nbOfPossibleDirections = directions.size();
         if (nbOfPossibleDirections != 0) {
             Random rand = new Random();
-            return possibleDirections.get(rand.nextInt(nbOfPossibleDirections));
+            return directions.get(rand.nextInt(nbOfPossibleDirections));
         }
         return null;
+    }
+
+    private static List<Direction> getSurvivingDirections(GridModel model, ComputerPlayerImplementation player, List<Direction> possibleDirections) {
+        List<Direction> survivingDirections = new ArrayList<>(possibleDirections);
+        List<Point2D> dangerCells = getAllDangerZones(model, player);
+
+        survivingDirections.removeIf((Direction d) -> {
+            Point2D arrivalCell = player.getSnake().getHead().getCoordinates().add(d.getVectorOfDirection());
+            return dangerCells.contains(arrivalCell);
+        });
+
+        return survivingDirections;
     }
 
     /**
@@ -73,6 +98,17 @@ public class BotController {
         });
 
         return possibleDirections;
+    }
+
+    private static List<Point2D> getAllDangerZones(GridModel model, ComputerPlayerImplementation player) {
+        List<Point2D> dangerCells = new ArrayList<>();
+        List<Player> players = model.getPlayers();
+        for (Player pl : players) {
+            if (!pl.equals(player)) {
+                dangerCells.addAll(pl.getDangerZone());
+            }
+        }
+        return dangerCells;
     }
 
 }
