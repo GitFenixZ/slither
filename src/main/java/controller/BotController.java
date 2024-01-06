@@ -24,22 +24,22 @@ public class BotController {
      * @param controller The grid controller.
      */
     public static void initComputerController(GridModel model,
-                                              ComputerPlayerImplementation player,
-                                              GridView view, GridController controller) {
+                                            ComputerPlayerImplementation player,
+                                            GridView view, GridController controller) {
 
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
-                switch (event.getCode()) {
-                    case UP:
-                    case DOWN:
-                    case LEFT:
-                    case RIGHT:
-                        Direction direction = chooseDirection(model, player);
-                        if (direction != null) {
-                            controller.movePlayer(player, direction);
-                        }
-                        break;
-                    default:
-                        break;
+            switch (event.getCode()) {
+                case UP:
+                case DOWN:
+                case LEFT:
+                case RIGHT:
+                    Direction direction = chooseDirection(model, player);
+                    if (direction != null) {
+                        controller.movePlayer(player, direction);
+                    }
+                    break;
+                default:
+                    break;
             }
         });
     }
@@ -55,9 +55,9 @@ public class BotController {
         List<Direction> possibleDirections = getPossibleDirections(model, player);
         List<Direction> survivingDirections = getSurvivingDirections(model, player, possibleDirections);
 
-        Direction randomDirection = getRandomDirection(model, player, possibleDirections);
+        Direction randomDirection = getRandomDirection(possibleDirections);
         if (!survivingDirections.isEmpty()) {
-            randomDirection = getRandomDirection(model, player, survivingDirections);
+            randomDirection = getRandomDirection(survivingDirections);
         }
 
         return randomDirection;
@@ -67,14 +67,10 @@ public class BotController {
     /**
      * Chooses a random direction from a list
      *
-     * @param model         The grid model
-     * @param player        The player to move
-     * @param directions    The list of directions to choose from
+     * @param directions The list of directions to choose from
      * @return a random valid direction
      */
-    private static Direction getRandomDirection(GridModel model,
-                                                ComputerPlayerImplementation player,
-                                                List<Direction> directions) {
+    private static Direction getRandomDirection(List<Direction> directions) {
         int nbOfPossibleDirections = directions.size();
         if (nbOfPossibleDirections != 0) {
             Random rand = new Random();
@@ -92,8 +88,8 @@ public class BotController {
      * @return a list containing the safe directions to choose
      */
     private static List<Direction> getSurvivingDirections(GridModel model,
-                                                          ComputerPlayerImplementation player,
-                                                          List<Direction> possibleDirections) {
+                                                        ComputerPlayerImplementation player,
+                                                        List<Direction> possibleDirections) {
         List<Direction> survivingDirections = new ArrayList<>(possibleDirections);
         List<Point2D> dangerCells = getAllDangerZones(model, player);
 
@@ -108,8 +104,8 @@ public class BotController {
     /**
      * List all the valid directions for the computer-controlled snake
      *
-     * @param model     The grid model
-     * @param player    The player to move
+     * @param model  The grid model
+     * @param player The player to move
      * @return list containing all valid directions
      */
     private static List<Direction> getPossibleDirections(GridModel model, ComputerPlayerImplementation player) {

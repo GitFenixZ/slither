@@ -10,11 +10,6 @@ import view.GridView;
  */
 public interface GridController {
 
-    enum Phase {
-        PLAYING,
-        GAME_OVER
-    }
-
     /**
      * Gets the current phase of play
      *
@@ -43,5 +38,10 @@ public interface GridController {
      * @param direction the direction to move the player
      */
     void movePlayer(Player player, Direction direction);
+
+    enum Phase {
+        PLAYING,
+        GAME_OVER
+    }
 
 }

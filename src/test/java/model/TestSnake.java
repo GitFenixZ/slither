@@ -3,6 +3,10 @@ package model;
 import javafx.geometry.Point2D;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSnake {
@@ -68,6 +72,66 @@ public class TestSnake {
         snake.moveToDirection(Direction.UP);
         assertEquals(2, snake.getHeadX());
         assertEquals(-2, snake.getHeadY());
+    }
+
+    @Test
+    void getDangerZone_HorizontalSnake() {
+        Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
+
+        List<Point2D> danger = snake.getDangerZone();
+
+        List<Point2D> expected = new ArrayList<>(Arrays.asList(new Point2D(-1, 0),
+                new Point2D(0, -1),
+                new Point2D(0, 1),
+                new Point2D(1, 0),
+                new Point2D(0, 0)
+        ));
+
+        assertEquals(expected.size(), danger.size());
+        for (int i = 0; i < danger.size(); i++) {
+            assertEquals(expected.get(i), danger.get(i));
+        }
+    }
+
+    @Test
+    void getDangerZone_LSnake() {
+        Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
+        snake.moveToDirection(Direction.UP);
+
+        List<Point2D> danger = snake.getDangerZone();
+
+        List<Point2D> expected = new ArrayList<>(Arrays.asList(new Point2D(-1, -1),
+                new Point2D(0, -2),
+                new Point2D(0, 0),
+                new Point2D(1, -1),
+                new Point2D(0, -1)
+        ));
+
+        assertEquals(expected.size(), danger.size());
+        for (int i = 0; i < danger.size(); i++) {
+            assertEquals(expected.get(i), danger.get(i));
+        }
+    }
+
+    @Test
+    void getDangerZone_VerticalSnake() {
+        Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
+        snake.moveToDirection(Direction.UP);
+        snake.moveToDirection(Direction.UP);
+
+        List<Point2D> danger = snake.getDangerZone();
+
+        List<Point2D> expected = new ArrayList<>(Arrays.asList(new Point2D(-1, -2),
+                new Point2D(0, -3),
+                new Point2D(0, -1),
+                new Point2D(1, -2),
+                new Point2D(0, -2)
+        ));
+
+        assertEquals(expected.size(), danger.size());
+        for (int i = 0; i < danger.size(); i++) {
+            assertEquals(expected.get(i), danger.get(i));
+        }
     }
 
     @Test

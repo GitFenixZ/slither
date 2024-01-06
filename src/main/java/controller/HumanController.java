@@ -16,26 +16,24 @@ public class HumanController {
      * @param controller The grid controller.
      */
     public static void initKeyboardController(HumanPlayerImplementation player,
-                                              GridView view,
-                                              GridController controller) {
+                                            GridView view,
+                                            GridController controller) {
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
-            if (controller.getPhase() == GridController.Phase.PLAYING) {
-                switch (event.getCode()) {
-                    case UP:
-                        controller.movePlayer(player, Direction.UP);
-                        break;
-                    case DOWN:
-                        controller.movePlayer(player, Direction.DOWN);
-                        break;
-                    case LEFT:
-                        controller.movePlayer(player, Direction.LEFT);
-                        break;
-                    case RIGHT:
-                        controller.movePlayer(player, Direction.RIGHT);
-                        break;
-                    default:
-                        break;
-                }
+            switch (event.getCode()) {
+                case UP:
+                    controller.movePlayer(player, Direction.UP);
+                    break;
+                case DOWN:
+                    controller.movePlayer(player, Direction.DOWN);
+                    break;
+                case LEFT:
+                    controller.movePlayer(player, Direction.LEFT);
+                    break;
+                case RIGHT:
+                    controller.movePlayer(player, Direction.RIGHT);
+                    break;
+                default:
+                    break;
             }
         });
 

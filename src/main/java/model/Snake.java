@@ -105,6 +105,7 @@ public class Snake {
     public List<Point2D> getDangerZone() {
         List<Point2D> dangerZone = new ArrayList<>();
 
+        //First, adding the cells the head can attain next move
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if ((Math.abs(i) == 1 && j == 0) || (i == 0 && Math.abs(j) == 1)) {
@@ -113,7 +114,8 @@ public class Snake {
             }
         }
 
-        for (int i = 1; i < getSegments().size() - 1; i++) {
+        //Second, adding the segments of the snake, minus the tail
+        for (int i = 0; i < getSegments().size() - 1; i++) {
             Point2D cell = getSegmentAtIndex(i).getCoordinates();
             if (!dangerZone.contains(cell)) {
                 dangerZone.add(cell);

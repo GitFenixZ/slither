@@ -1,13 +1,9 @@
 package model.player;
 
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import model.Direction;
 import model.Segment;
 import model.Snake;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public interface Player {
 
