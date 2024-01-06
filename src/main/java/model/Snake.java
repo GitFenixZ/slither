@@ -97,6 +97,32 @@ public class Snake {
         return false;
     }
 
+    /**
+     * Get the list of positions where an opponent might collide with this snake next turn
+     *
+     * @return the list of positions where an opponent might collide with this snake next turn
+     */
+    public List<Point2D> getDangerZone() {
+        List<Point2D> dangerZone = new ArrayList<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if ((Math.abs(i) == 1 && j == 0) || (i == 0 && Math.abs(j) == 1)) {
+                    dangerZone.add(new Point2D(getHeadX() + i, getHeadY() + j));
+                }
+            }
+        }
+
+        for (int i = 1; i < getSegments().size() - 1; i++) {
+            Point2D cell = getSegmentAtIndex(i).getCoordinates();
+            if (!dangerZone.contains(cell)) {
+                dangerZone.add(cell);
+            }
+        }
+
+        return dangerZone;
+    }
+
     public void grow() {
         Segment tail = getTail();
         Direction tailDirection = tail.getDirection();

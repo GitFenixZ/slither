@@ -136,7 +136,7 @@ public class BotController {
         List<Player> players = model.getPlayers();
         for (Player pl : players) {
             if (!pl.equals(player)) {
-                dangerCells.addAll(pl.getDangerZone());
+                dangerCells.addAll(pl.getSnake().getDangerZone());
             }
         }
         return dangerCells;
