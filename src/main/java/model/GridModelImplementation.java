@@ -31,9 +31,6 @@ public class GridModelImplementation implements GridModel {
         this.players.addAll(computerPlayers);
     }
 
-
-
-
     @Override
     public List<Human> getHumanPlayers() {
         return humanPlayers;

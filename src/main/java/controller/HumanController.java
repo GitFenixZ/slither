@@ -151,7 +151,7 @@ public class HumanController {
      * @param player The player to move
      * @return The list containing all dangerous cells for the specified player
      */
-    private static List<Point2D> getAllDangerZones(GridModel model, ComputerPlayerImplementation player) {
+    private static List<Point2D> getAllDangerZones(GridModel model, Bot player) {
         List<Point2D> dangerCells = new ArrayList<>();
         List<Player> players = model.getPlayers();
         for (Player pl : players) {

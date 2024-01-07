@@ -108,7 +108,7 @@ public class Snake {
 
         for (int row = -1; row <= 1; row++) {
             for (int col = -1; col <= 1; col++) {
-                Point2D resultOppositeCurrentDirection = getHead().getDirection().getOpposite().getVectorOfDirection();
+                Point2D resultOppositeCurrentDirection = getHead().getDirection().getOppositeDirection().getVectorOfDirection();
                 if (!resultOppositeCurrentDirection.equals(new Point2D(row, col)) &&
                         ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1))) {
                     dangerZone.add(new Point2D(getHeadX() + row, getHeadY() + col));
@@ -157,9 +157,7 @@ public class Snake {
     public static class Builder {
         private static final int DEFAULT_SNAKE_LENGTH = 3;
         private List<Segment> segments = null;
-        private Point2D coordinates = new Point2D(
-                GridModelImplementation.WIDTH / 2,
-                GridModelImplementation.HEIGHT / 2);
+        private Point2D coordinates;
         private Color color = Color.GREEN;
 
         /**

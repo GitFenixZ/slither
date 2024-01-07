@@ -4,6 +4,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import model.Direction;
 import model.GridModel;
+import model.player.Bot;
 import model.player.ComputerPlayerImplementation;
 import model.player.Player;
 import view.GridView;
@@ -24,7 +25,7 @@ public class BotController {
      * @param controller The grid controller.
      */
     public static void initComputerController(GridModel model,
-                                            ComputerPlayerImplementation player,
+                                            Bot player,
                                             GridView view, GridController controller) {
 
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
@@ -51,7 +52,7 @@ public class BotController {
      * @param player The player to move
      * @return a direction avoiding another snake if possible
      */
-    private static Direction chooseDirection(GridModel model, ComputerPlayerImplementation player) {
+    private static Direction chooseDirection(GridModel model, Bot player) {
         List<Direction> possibleDirections = getPossibleDirections(model, player);
         List<Direction> survivingDirections = getSurvivingDirections(model, player, possibleDirections);
 
@@ -70,7 +71,7 @@ public class BotController {
      * @param player The player to move
      * @return list containing all valid directions
      */
-    private static List<Direction> getPossibleDirections(GridModel model, ComputerPlayerImplementation player) {
+    private static List<Direction> getPossibleDirections(GridModel model, Bot player) {
         List<Direction> possibleDirections =
                 new ArrayList<>(Arrays.asList(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT));
         possibleDirections.removeIf((Direction d) -> {
@@ -91,7 +92,7 @@ public class BotController {
      * @return a list containing the safe directions to choose
      */
     private static List<Direction> getSurvivingDirections(GridModel model,
-                                                          ComputerPlayerImplementation player,
+                                                          Bot player,
                                                           List<Direction> possibleDirections) {
         List<Direction> survivingDirections = new ArrayList<>(possibleDirections);
         List<Point2D> dangerCells = getAllDangerZones(model, player);
@@ -111,7 +112,7 @@ public class BotController {
      * @param player The player to move
      * @return The list containing all dangerous cells for the specified player
      */
-    private static List<Point2D> getAllDangerZones(GridModel model, ComputerPlayerImplementation player) {
+    private static List<Point2D> getAllDangerZones(GridModel model, Bot player) {
         List<Point2D> dangerCells = new ArrayList<>();
         List<Player> players = model.getPlayers();
         for (Player pl : players) {
