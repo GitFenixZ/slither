@@ -108,15 +108,26 @@ public class Snake {
 
         for (int row = -1; row <= 1; row++) {
             for (int col = -1; col <= 1; col++) {
-                Point2D resultOppositeCurrentDirection = getHead().getDirection().getOppositeDirection().getVectorOfDirection();
-                if (!resultOppositeCurrentDirection.equals(new Point2D(row, col)) &&
-                        ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1))) {
+                if (isMoveVectorAllowed(row, col)) {
                     dangerZone.add(new Point2D(getHeadX() + row, getHeadY() + col));
                 }
             }
         }
 
         return dangerZone;
+    }
+
+    /**
+     * Checks if a move from row horizontally and col vertically is allowed
+     *
+     * @param row The horizontal value
+     * @param col The vertical Value
+     * @return true if a move from row horizontally and col vertically is allowed, false otherwise
+     */
+    private boolean isMoveVectorAllowed(int row, int col) {
+        Point2D resultOppositeCurrentDirection = getHead().getDirection().getOppositeDirection().getVectorOfDirection();
+        return !resultOppositeCurrentDirection.equals(new Point2D(row, col)) &&
+            ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1));
     }
 
     /**
