@@ -74,6 +74,13 @@ public class TestSnake {
         assertEquals(-2, snake.getHeadY());
     }
 
+    void assertEqualsDeathZones(List<Point2D> expected, List<Point2D> danger) {
+        assertEquals(expected.size(), danger.size());
+        for (int i = 0; i < danger.size(); i++) {
+            assertEquals(expected.get(i), danger.get(i));
+        }
+    }
+
     @Test
     void getAssuredDeathZone_HorizontalSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
@@ -85,10 +92,7 @@ public class TestSnake {
                 new Point2D(-1, 0)
         ));
 
-        assertEquals(expected.size(), danger.size());
-        for (int i = 0; i < danger.size(); i++) {
-            assertEquals(expected.get(i), danger.get(i));
-        }
+        assertEqualsDeathZones(expected, danger);
     }
 
     @Test
@@ -103,10 +107,7 @@ public class TestSnake {
                 new Point2D(0, 0)
         ));
 
-        assertEquals(expected.size(), danger.size());
-        for (int i = 0; i < danger.size(); i++) {
-            assertEquals(expected.get(i), danger.get(i));
-        }
+        assertEqualsDeathZones(expected, danger);
     }
 
     @Test
@@ -122,10 +123,7 @@ public class TestSnake {
                 new Point2D(0, -1)
         ));
 
-        assertEquals(expected.size(), danger.size());
-        for (int i = 0; i < danger.size(); i++) {
-            assertEquals(expected.get(i), danger.get(i));
-        }
+        assertEqualsDeathZones(expected, danger);
     }
 
     @Test
@@ -140,10 +138,7 @@ public class TestSnake {
                 new Point2D(1, 0)
         ));
 
-        assertEquals(expected.size(), danger.size());
-        for (int i = 0; i < danger.size(); i++) {
-            assertEquals(expected.get(i), danger.get(i));
-        }
+        assertEqualsDeathZones(expected, danger);
     }
 
     @Test
@@ -159,10 +154,7 @@ public class TestSnake {
                 new Point2D(1, -1)
         ));
 
-        assertEquals(expected.size(), danger.size());
-        for (int i = 0; i < danger.size(); i++) {
-            assertEquals(expected.get(i), danger.get(i));
-        }
+        assertEqualsDeathZones(expected, danger);
     }
 
     @Test
@@ -179,10 +171,7 @@ public class TestSnake {
                 new Point2D(1, -2)
         ));
 
-        assertEquals(expected.size(), danger.size());
-        for (int i = 0; i < danger.size(); i++) {
-            assertEquals(expected.get(i), danger.get(i));
-        }
+        assertEqualsDeathZones(expected, danger);
     }
 
     @Test
