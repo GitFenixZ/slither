@@ -108,7 +108,10 @@ public class Snake {
         //First, adding the cells the head can reach on the next move
         for (int row = -1; row <= 1; row++) {
             for (int col = -1; col <= 1; col++) {
-                if ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1)) {
+                Point2D resultOppositeCurrentDirection = getHead().getDirection().getOpposite().getVectorOfDirection();
+                if (!resultOppositeCurrentDirection.equals(new Point2D(getHeadX() + row, getHeadY() + col)) &&
+                        ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1))) {
+
                     dangerZone.add(new Point2D(getHeadX() + row, getHeadY() + col));
                 }
             }

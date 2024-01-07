@@ -26,33 +26,55 @@ public class HumanController {
      */
     public static void initKeyboardController(GridModel model, GridView view, GridController controller) {
         view.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (event) -> {
+            boolean humansMoved = false;
             switch (event.getCode()) {
                 case UP:
-                    moveHumans(model, controller, Direction.UP);
+                    humansMoved = moveHumans(model, controller, Direction.UP);
                     break;
                 case DOWN:
-                    moveHumans(model, controller, Direction.DOWN);
+                    humansMoved = moveHumans(model, controller, Direction.DOWN);
                     break;
                 case LEFT:
-                    moveHumans(model, controller, Direction.LEFT);
+                    humansMoved = moveHumans(model, controller, Direction.LEFT);
                     break;
                 case RIGHT:
-                    moveHumans(model, controller, Direction.RIGHT);
+                    humansMoved = moveHumans(model, controller, Direction.RIGHT);
                     break;
                 default:
                     break;
             }
-            moveComputers(model, controller);
+            if (humansMoved) {
+                moveComputers(model, controller);
+            }
         });
 
     }
 
-    private static void moveHumans(GridModel model, GridController controller, Direction direction) {
+    /**
+     * Move every human-controlled player according to the specified direction
+     *
+     * @param model      The grid model
+     * @param controller The grid controller
+     * @param direction  The direction to take
+     * @return true if the direction is valid for the players, false otherwise
+     */
+    private static boolean moveHumans(GridModel model, GridController controller, Direction direction) {
         for (Human player : model.getHumanPlayers()) {
-            controller.movePlayer(player, direction);
+            if (direction != player.getSnake().getHead().getDirection().getOppositeDirection()) {
+                controller.movePlayer(player, direction);
+            } else {
+                return false;
+            }
         }
+        return true;
     }
 
+    /**
+     * Move every computer-controlled snakes according to the computer strategy
+     *
+     * @param model      The grid model
+     * @param controller The grid controller
+     */
     private static void moveComputers(GridModel model, GridController controller) {
         for (Bot cpu : model.getComputerPlayers()) {
             Direction direction = chooseDirection(model, cpu);
@@ -94,7 +116,7 @@ public class HumanController {
         possibleDirections.removeIf((Direction d) -> {
             Point2D snakeCoordinates = player.getSnake().getHead().getCoordinates();
             Point2D futurePosition = snakeCoordinates.add(d.getVectorOfDirection());
-            return !model.isInsideGrid(futurePosition);
+            return d == player.getSnake().getHead().getDirection().getOppositeDirection() || !model.isInsideGrid(futurePosition);
         });
 
         return possibleDirections;

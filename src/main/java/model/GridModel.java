@@ -1,7 +1,9 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.player.Bot;
 import model.player.ComputerPlayerImplementation;
+import model.player.Human;
 import model.player.HumanPlayerImplementation;
 import model.food.Food;
 import model.player.Player;
@@ -14,9 +16,9 @@ import java.util.List;
  */
 public interface GridModel {
 
-    List <HumanPlayerImplementation> getHumanPlayers();
+    List<Human> getHumanPlayers();
 
-    List <ComputerPlayerImplementation> getComputerPlayers();
+    List<Bot> getComputerPlayers();
 
     /**
      * Gets the grid's players' list
@@ -70,10 +72,10 @@ public interface GridModel {
         List<Point2D> non_free_coordinates = new ArrayList<>();
 
         // Add coordinates occupied by players' whole snake to non_free_coordinates
-        for (HumanPlayerImplementation human : getHumanPlayers()) {
+        for (Human human : getHumanPlayers()) {
             human.extractCoordinates(non_free_coordinates);
         }
-        for (ComputerPlayerImplementation cpu : getComputerPlayers()) {
+        for (Bot cpu : getComputerPlayers()) {
             cpu.extractCoordinates(non_free_coordinates);
         }
 
