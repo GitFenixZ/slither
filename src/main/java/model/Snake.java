@@ -85,7 +85,7 @@ public class Snake {
     /**
      * Checks if the head of the snake entered in collision with another snake
      *
-     * @param other       the opponent snake
+     * @param other the opponent snake
      * @return true if the head of the snake is colliding with the other
      */
     public boolean collidedWith(Snake other) {
@@ -127,7 +127,7 @@ public class Snake {
     private boolean isMoveVectorAllowed(int row, int col) {
         Point2D resultOppositeCurrentDirection = getHead().getDirection().getOppositeDirection().getVectorOfDirection();
         return !resultOppositeCurrentDirection.equals(new Point2D(row, col)) &&
-            ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1));
+                ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1));
     }
 
     /**

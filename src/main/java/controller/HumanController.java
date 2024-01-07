@@ -116,7 +116,8 @@ public class HumanController {
         possibleDirections.removeIf((Direction d) -> {
             Point2D snakeCoordinates = player.getSnake().getHead().getCoordinates();
             Point2D futurePosition = snakeCoordinates.add(d.getVectorOfDirection());
-            return d == player.getSnake().getHead().getDirection().getOppositeDirection() || !model.isInsideGrid(futurePosition);
+            return d == player.getSnake().getHead().getDirection().getOppositeDirection()
+                    || !model.isInsideGrid(futurePosition);
         });
 
         return possibleDirections;
@@ -131,8 +132,8 @@ public class HumanController {
      * @return a list containing the safe directions to choose
      */
     private static List<Direction> getSurvivingDirections(GridModel model,
-                                                          Bot player,
-                                                          List<Direction> possibleDirections) {
+                                                        Bot player,
+                                                        List<Direction> possibleDirections) {
         List<Direction> survivingDirections = new ArrayList<>(possibleDirections);
         List<Point2D> dangerCells = getAllDangerZones(model, player);
 

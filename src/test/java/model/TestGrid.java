@@ -1,6 +1,7 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.food.Food;
 import model.player.ComputerPlayerImplementation;
 import model.player.HumanPlayerImplementation;
 import model.player.Player;
@@ -49,7 +50,6 @@ class TestGrid {
 
         @Override
         public void setPhase(Phase phase) {
-
         }
 
         @Override
@@ -75,6 +75,11 @@ class TestGrid {
         @Override
         public int getHeight() {
             return HEIGHT;
+        }
+
+        @Override
+        public Food getFood() {
+            return null;
         }
     }
 }
