@@ -68,7 +68,7 @@ public class GridControllerImplementation implements GridController {
             Iterator<Player> iter = model.getPlayers().iterator();
             while (iter.hasNext()) {
                 Player p = iter.next();
-                if (!p.equals(player) && player.getSnake().collidedWith(p.getSnake())) {
+                if (player.getSnake().collidedWith(p.getSnake(), p.equals(player))) {
                     model.getPlayers().remove(player);
                     if (model.getPlayers().size() == 1) {
                         view.gameOver(model.getPlayers().get(0).getName());

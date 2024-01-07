@@ -85,12 +85,13 @@ public class Snake {
     /**
      * Checks if the head of the snake entered in collision with another snake
      *
-     * @param other the opponent snake
+     * @param other       the opponent snake
+     * @param otherIsThis is true if this and other are the same snake
      * @return true if the head of the snake is colliding with the other
      */
-    public boolean collidedWith(Snake other) {
+    public boolean collidedWith(Snake other, boolean otherIsThis) {
         for (Segment s : other.segments) {
-            if (getHeadCoordinates().equals(s.getCoordinates())) {
+            if ((!otherIsThis || !s.equals(getHead())) && getHeadCoordinates().equals(s.getCoordinates())) {
                 return true;
             }
         }
@@ -98,34 +99,43 @@ public class Snake {
     }
 
     /**
-     * Get the list of positions where an opponent might collide with this snake on the next move
+     * Get the list of positions where the snake's head could be on the next move
      *
-     * @return the list of positions where an opponent might collide with this snake on the next move
+     * @return the list of positions where the snake's head could be on the next move
      */
-    public List<Point2D> getDangerZone() {
+    public List<Point2D> getPossibleDeathZone() {
         List<Point2D> dangerZone = new ArrayList<>();
 
-        //First, adding the cells the head can reach on the next move
         for (int row = -1; row <= 1; row++) {
             for (int col = -1; col <= 1; col++) {
                 Point2D resultOppositeCurrentDirection = getHead().getDirection().getOpposite().getVectorOfDirection();
-                if (!resultOppositeCurrentDirection.equals(new Point2D(getHeadX() + row, getHeadY() + col)) &&
+                if (!resultOppositeCurrentDirection.equals(new Point2D(row, col)) &&
                         ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1))) {
-
                     dangerZone.add(new Point2D(getHeadX() + row, getHeadY() + col));
                 }
             }
         }
 
+        return dangerZone;
+    }
+
+    /**
+     * Get the list of positions where an opponent is sure to collide with this snake on the next move
+     *
+     * @return the list of positions where an opponent is sure to collide with this snake on the next move
+     */
+    public List<Point2D> getAssuredDeathZone() {
+        List<Point2D> deathZone = new ArrayList<>();
+
         //Second, adding the segments of the snake, minus the tail
         for (int i = 0; i < getSegments().size() - 1; i++) {
             Point2D cell = getSegmentAtIndex(i).getCoordinates();
-            if (!dangerZone.contains(cell)) {
-                dangerZone.add(cell);
+            if (!deathZone.contains(cell)) {
+                deathZone.add(cell);
             }
         }
 
-        return dangerZone;
+        return deathZone;
     }
 
     public void grow() {
