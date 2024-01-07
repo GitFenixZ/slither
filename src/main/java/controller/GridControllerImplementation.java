@@ -32,7 +32,7 @@ public class GridControllerImplementation implements GridController {
         Player human = new Human.Builder().build();
         Player computer = new Bot.Builder().build();
 
-        model = new GridModelImplementation(human, computer);
+        model = new GridModelImplementation(humanPlayers, computerPlayers);
         view = new GridView(model);
     }
 

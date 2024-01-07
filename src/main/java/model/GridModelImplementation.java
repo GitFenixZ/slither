@@ -2,6 +2,8 @@ package model;
 
 import javafx.geometry.Point2D;
 import model.food.Food;
+import model.player.ComputerPlayerImplementation;
+import model.player.HumanPlayerImplementation;
 import model.player.Player;
 
 import java.util.ArrayList;
@@ -14,14 +16,33 @@ public class GridModelImplementation implements GridModel {
     public static final int HEIGHT = 18;
 
     private final List<Player> players;
+    private final List<HumanPlayerImplementation> humanPlayers;
+    private final List<ComputerPlayerImplementation> computerPlayers;
 
     private final Food food;
 
-    public GridModelImplementation(Player human, Player computer) {
+    public GridModelImplementation(List<HumanPlayerImplementation> humanPlayers, List<ComputerPlayerImplementation> computerPlayers) {
         this.food = new Food(this);
         spawnFood();
+        this.humanPlayers = humanPlayers;
+        this.computerPlayers = computerPlayers;
 
-        players = new ArrayList<>(Arrays.asList(human, computer));
+        this.players = new ArrayList<>();
+        this.players.addAll(humanPlayers);
+        this.players.addAll(computerPlayers);
+    }
+
+
+
+
+    @Override
+    public List<HumanPlayerImplementation> getHumanPlayers() {
+        return humanPlayers;
+    }
+
+    @Override
+    public List<ComputerPlayerImplementation> getComputerPlayers() {
+        return computerPlayers;
     }
 
     @Override

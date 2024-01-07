@@ -1,6 +1,8 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.player.ComputerPlayerImplementation;
+import model.player.HumanPlayerImplementation;
 import model.food.Food;
 import model.player.Player;
 
@@ -11,6 +13,10 @@ import java.util.List;
  * Interface representing a grid in a slither game.
  */
 public interface GridModel {
+
+    List <HumanPlayerImplementation> getHumanPlayers();
+
+    List <ComputerPlayerImplementation> getComputerPlayers();
 
     /**
      * Gets the grid's players' list
@@ -64,8 +70,12 @@ public interface GridModel {
         List<Point2D> non_free_coordinates = new ArrayList<>();
 
         // Add coordinates occupied by players' whole snake to non_free_coordinates
-        getHumanPlayer().extractCoordinates(non_free_coordinates);
-        getComputerPlayer().extractCoordinates(non_free_coordinates);
+        for (HumanPlayerImplementation human : getHumanPlayers()) {
+            human.extractCoordinates(non_free_coordinates);
+        }
+        for (ComputerPlayerImplementation cpu : getComputerPlayers()) {
+            cpu.extractCoordinates(non_free_coordinates);
+        }
 
         // Add coordinates occupied by food to non_free_coordinates
         if (getFood() != null && getFood().getCoordinates() != null) {
