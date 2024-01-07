@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GridControllerImplementation implements GridController {
-    private Phase phase;
     private List<Human> humanPlayers;
     private List<Bot> computerPlayers;
 
@@ -27,10 +26,11 @@ public class GridControllerImplementation implements GridController {
     }
 
     private void initGame() {
-        phase = Phase.PLAYING;
+        Human human = new Human.Builder().build();
+        List<Human> humanPlayers = new ArrayList<>(Arrays.asList(human));
 
-        Player human = new Human.Builder().build();
-        Player computer = new Bot.Builder().build();
+        Bot computer = new Bot.Builder().build();
+        List<Bot> computerPlayers = new ArrayList<>(Arrays.asList(computer));
 
         model = new GridModelImplementation(humanPlayers, computerPlayers);
         view = new GridView(model);
@@ -39,12 +39,6 @@ public class GridControllerImplementation implements GridController {
     private void initControllers() {
         BotController.initComputerController(model, view, this);
         HumanController.initKeyboardController(model, view, this);
-    }
-
-    @Override
-    public Phase getPhase() {
-        return phase;
-
     }
 
     @Override
@@ -59,7 +53,7 @@ public class GridControllerImplementation implements GridController {
 
     @Override
     public void movePlayer(Player player, Direction direction) {
-        if (phase == Phase.PLAYING) {
+        if (model.getPhase() == GridModel.Phase.PLAYING) {
 
             if (model.movePlayer(player, direction)) {
                 view.update();
@@ -72,7 +66,7 @@ public class GridControllerImplementation implements GridController {
                     model.getPlayers().remove(player);
                     if (model.getPlayers().size() == 1) {
                         view.gameOver(model.getPlayers().get(0).getName());
-                        phase = Phase.GAME_OVER;
+                        model.setPhase(GridModel.Phase.GAME_OVER);
                         break;
                     }
                 }

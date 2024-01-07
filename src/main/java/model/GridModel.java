@@ -2,9 +2,7 @@ package model;
 
 import javafx.geometry.Point2D;
 import model.player.Bot;
-import model.player.ComputerPlayerImplementation;
 import model.player.Human;
-import model.player.HumanPlayerImplementation;
 import model.food.Food;
 import model.player.Player;
 
@@ -15,6 +13,18 @@ import java.util.List;
  * Interface representing a grid in a slither game.
  */
 public interface GridModel {
+
+    /**
+     * Gets the current phase of play
+     *
+     * @return the current phase of play
+     */
+    Phase getPhase();
+
+    /**
+     * Modifies the current phase of play
+     */
+    void setPhase(Phase phase);
 
     List<Human> getHumanPlayers();
 
@@ -195,6 +205,11 @@ public interface GridModel {
      */
     default boolean isMoveValid(Player player, Direction direction) {
         return true;
+    }
+
+    enum Phase {
+        PLAYING,
+        GAME_OVER
     }
 
 }

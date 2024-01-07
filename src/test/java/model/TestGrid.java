@@ -43,6 +43,16 @@ class TestGrid {
         private static final int HEIGHT = 25;
 
         @Override
+        public Phase getPhase() {
+            return null;
+        }
+
+        @Override
+        public void setPhase(Phase phase) {
+
+        }
+
+        @Override
         public List<Player> getPlayers() {
             return null;
         }

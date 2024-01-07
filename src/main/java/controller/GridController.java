@@ -11,13 +11,6 @@ import view.GridView;
 public interface GridController {
 
     /**
-     * Gets the current phase of play
-     *
-     * @return the current phase of play
-     */
-    Phase getPhase();
-
-    /**
      * Gets the model associated with the grid controller.
      *
      * @return the grid model
@@ -38,10 +31,5 @@ public interface GridController {
      * @param direction the direction to move the player
      */
     void movePlayer(Player player, Direction direction);
-
-    enum Phase {
-        PLAYING,
-        GAME_OVER
-    }
 
 }

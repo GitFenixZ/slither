@@ -13,6 +13,7 @@ public class GridModelImplementation implements GridModel {
 
     public static final int WIDTH = 32;
     public static final int HEIGHT = 18;
+    private Phase phase;
 
     private final List<Player> players;
     private final List<Human> humanPlayers;
@@ -21,6 +22,7 @@ public class GridModelImplementation implements GridModel {
     private final Food food;
 
     public GridModelImplementation(List<Human> humanPlayers, List<Bot> computerPlayers) {
+        this.phase = Phase.PLAYING;
         this.food = new Food(this);
         spawnFood();
         this.humanPlayers = humanPlayers;
@@ -29,6 +31,16 @@ public class GridModelImplementation implements GridModel {
         this.players = new ArrayList<>();
         this.players.addAll(humanPlayers);
         this.players.addAll(computerPlayers);
+    }
+
+    @Override
+    public Phase getPhase() {
+        return phase;
+    }
+
+    @Override
+    public void setPhase(Phase phase) {
+        this.phase = phase;
     }
 
     @Override
