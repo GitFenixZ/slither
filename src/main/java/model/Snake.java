@@ -86,10 +86,10 @@ public class Snake {
      * Checks if the head of the snake entered in collision with another snake
      *
      * @param other       the opponent snake
-     * @param otherIsThis is true if this and other are the same snake
      * @return true if the head of the snake is colliding with the other
      */
-    public boolean collidedWith(Snake other, boolean otherIsThis) {
+    public boolean collidedWith(Snake other) {
+        boolean otherIsThis = other.getHead().equals(getHead());
         for (Segment s : other.segments) {
             if ((!otherIsThis || !s.equals(getHead())) && getHeadCoordinates().equals(s.getCoordinates())) {
                 return true;
@@ -103,7 +103,7 @@ public class Snake {
      *
      * @return the list of positions where the snake's head could be on the next move
      */
-    public List<Point2D> getPossibleDeathZone() {
+    public List<Point2D> getPotentialHeadPositions() {
         List<Point2D> dangerZone = new ArrayList<>();
 
         for (int row = -1; row <= 1; row++) {
@@ -135,7 +135,7 @@ public class Snake {
      *
      * @return the list of positions where an opponent is sure to collide with this snake on the next move
      */
-    public List<Point2D> getAssuredDeathZone() {
+    public List<Point2D> getAssuredHitBox() {
         List<Point2D> deathZone = new ArrayList<>();
 
         //Second, adding the segments of the snake, minus the tail

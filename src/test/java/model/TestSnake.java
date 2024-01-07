@@ -82,10 +82,10 @@ public class TestSnake {
     }
 
     @Test
-    void getAssuredDeathZone_HorizontalSnake() {
+    void getAssuredHitBox_HorizontalSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
 
-        List<Point2D> danger = snake.getAssuredDeathZone();
+        List<Point2D> danger = snake.getAssuredHitBox();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(0, 0),
@@ -96,11 +96,11 @@ public class TestSnake {
     }
 
     @Test
-    void getAssuredDeathZone_LSnake() {
+    void getAssuredHitBox_LSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
         snake.moveToDirection(Direction.UP);
 
-        List<Point2D> danger = snake.getAssuredDeathZone();
+        List<Point2D> danger = snake.getAssuredHitBox();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(0, -1),
@@ -111,12 +111,12 @@ public class TestSnake {
     }
 
     @Test
-    void getAssuredDeathZone_VerticalSnake() {
+    void getAssuredHitBox_VerticalSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
         snake.moveToDirection(Direction.UP);
         snake.moveToDirection(Direction.UP);
 
-        List<Point2D> danger = snake.getAssuredDeathZone();
+        List<Point2D> danger = snake.getAssuredHitBox();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(0, -2),
@@ -127,10 +127,10 @@ public class TestSnake {
     }
 
     @Test
-    void getPossibleDeathZone_HorizontalSnake() {
+    void getPotentialHeadPositions_HorizontalSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
 
-        List<Point2D> danger = snake.getPossibleDeathZone();
+        List<Point2D> positions = snake.getPotentialHeadPositions();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(0, -1),
@@ -138,15 +138,15 @@ public class TestSnake {
                 new Point2D(1, 0)
         ));
 
-        assertEqualsDeathZones(expected, danger);
+        assertEqualsDeathZones(expected, positions);
     }
 
     @Test
-    void getPossibleDeathZone_LSnake() {
+    void getPotentialHeadPositions_LSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
         snake.moveToDirection(Direction.UP);
 
-        List<Point2D> danger = snake.getPossibleDeathZone();
+        List<Point2D> positions = snake.getPotentialHeadPositions();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(-1, -1),
@@ -154,16 +154,16 @@ public class TestSnake {
                 new Point2D(1, -1)
         ));
 
-        assertEqualsDeathZones(expected, danger);
+        assertEqualsDeathZones(expected, positions);
     }
 
     @Test
-    void getPossibleDeathZone_VerticalSnake() {
+    void getPotentialHeadPositions_VerticalSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
         snake.moveToDirection(Direction.UP);
         snake.moveToDirection(Direction.UP);
 
-        List<Point2D> danger = snake.getPossibleDeathZone();
+        List<Point2D> positions = snake.getPotentialHeadPositions();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(-1, -2),
@@ -171,7 +171,7 @@ public class TestSnake {
                 new Point2D(1, -2)
         ));
 
-        assertEqualsDeathZones(expected, danger);
+        assertEqualsDeathZones(expected, positions);
     }
 
     @Test

@@ -155,9 +155,9 @@ public class HumanController {
         List<Point2D> dangerCells = new ArrayList<>();
         List<Player> players = model.getPlayers();
         for (Player pl : players) {
-            dangerCells.addAll(pl.getSnake().getAssuredDeathZone());
+            dangerCells.addAll(pl.getSnake().getAssuredHitBox());
             if (!pl.equals(player)) {
-                dangerCells.addAll(pl.getSnake().getPossibleDeathZone());
+                dangerCells.addAll(pl.getSnake().getPotentialHeadPositions());
             }
         }
         return dangerCells;
