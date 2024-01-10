@@ -6,6 +6,8 @@ import model.Direction;
 import model.Segment;
 import model.Snake;
 
+import java.util.List;
+
 public interface Player {
 
     /**
@@ -46,5 +48,13 @@ public interface Player {
     default boolean isOnCoordinates(Point2D coordinates) {
         return getSnake().getSegments().stream().anyMatch(
                 (Segment segment) -> segment.getCoordinates().equals(coordinates));
+    }
+
+    default void extractCoordinates(List<Point2D> destination) {
+        destination.addAll(
+                getSnake().getSegments().stream().map(
+                        Segment::getCoordinates
+                ).toList()
+        );
     }
 }

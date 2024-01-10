@@ -1,7 +1,11 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.food.Food;
 import model.player.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface representing a grid in a slither game.
@@ -47,6 +51,50 @@ public interface GridModel {
                 coordinates.getY() >= 0 && coordinates.getY() < getHeight();
     }
 
+    /**
+     * Checks if the grid is full.
+     * The grid is full when there are no more free coordinates.
+     *
+     * @return true if the grid is full, false otherwise
+     */
+    default boolean isFull() {
+        return getFreeCoordinates().size() == getHeight() * getWidth();
+    }
+
+    /**
+     * Gets the free coordinates of the grid.
+     * Coordinates is free if there is no snake and no food in it.
+     *
+     * @return the free coordinates of the grid
+     */
+    default List<Point2D> getFreeCoordinates() {
+        List<Point2D> non_free_coordinates = new ArrayList<>();
+
+        // Add coordinates occupied by players' whole snake to non_free_coordinates
+        getHumanPlayer().extractCoordinates(non_free_coordinates);
+        getComputerPlayer().extractCoordinates(non_free_coordinates);
+
+        // Add coordinates occupied by food to non_free_coordinates
+        if (getFood() != null && getFood().getCoordinates() != null) {
+            non_free_coordinates.add(getFoodCoordinates());
+        }
+
+        List<Point2D> free_coordinates = new ArrayList<>();
+
+        for (int row = 0; row < getHeight(); row++) {
+            for (int column = 0; column < getWidth(); column++) {
+                Point2D coordinates = new Point2D(column, row);
+                free_coordinates.add(coordinates);
+            }
+        }
+
+        free_coordinates.removeIf(
+                non_free_coordinates::contains
+        );
+
+        return free_coordinates;
+    }
+
     default boolean movePlayer(Player player, Direction direction) {
         if (!isMoveValid(player, direction)) {
             return false;
@@ -68,16 +116,50 @@ public interface GridModel {
         spawnFood();
     }
 
+    default void deleteFood() {
+        if (getFood() == null) {
+            return;
+        }
+
+        getFood().delete();
+    }
+
+    default void spawnFood() {
+        if (getFood() != null) {
+            return;
+        }
+
+        getFood().spawn();
+    }
+
+    /**
+     * Checks if the food has been eaten by a player.
+     *
+     * @param player the player to check
+     * @return true if the food has been eaten by the player, false otherwise
+     */
     default boolean isFoodEaten(Player player) {
         return getFoodCoordinates().equals(player.getSnake().getHeadCoordinates());
     }
 
-    Point2D getFoodCoordinates();
+    /**
+     * Gets a copy of the grid's food's coordinates.
+     *
+     * @return a copy of the grid's food's coordinates
+     */
+    default Point2D getFoodCoordinates() {
+        return getFood().getCoordinates();
+    }
 
-    void deleteFood();
+    ;
 
-    void spawnFood();
-
+    /**
+     * Gets the food of the grid.
+     *
+     * @return the <b>ORIGINAL</b> pointer to the food of the grid if it exists,
+     * null otherwise
+     */
+    Food getFood();
 
 
     /**
