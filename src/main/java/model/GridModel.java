@@ -151,8 +151,6 @@ public interface GridModel {
         return getFood().getCoordinates();
     }
 
-    ;
-
     /**
      * Gets the food of the grid.
      *
