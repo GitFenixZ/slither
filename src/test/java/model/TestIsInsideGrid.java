@@ -1,15 +1,24 @@
 package model;
 
 import javafx.geometry.Point2D;
-import model.player.Player;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 
 class TestIsInsideGrid {
-    GridModel grid = spy(DummyGridModel.class);
+
+    private GridModel grid;
+
+    @BeforeEach
+    void setUp() {
+        grid = spy(GridModel.class);
+        doReturn(25).when(grid).getHeight();
+        doReturn(25).when(grid).getWidth();
+    }
 
     @Test
     void isInsideGrid_Valid() {
@@ -34,43 +43,4 @@ class TestIsInsideGrid {
         }
     }
 
-    private static class DummyGridModel implements GridModel {
-        private static final int WIDTH = 25;
-        private static final int HEIGHT = 25;
-
-        @Override
-        public Player getHumanPlayer() {
-            return null;
-        }
-
-        @Override
-        public Player getComputerPlayer() {
-            return null;
-        }
-
-        @Override
-        public int getWidth() {
-            return WIDTH;
-        }
-
-        @Override
-        public int getHeight() {
-            return HEIGHT;
-        }
-
-        @Override
-        public Point2D getFoodCoordinates() {
-            return null;
-        }
-
-        @Override
-        public void deleteFood() {
-
-        }
-
-        @Override
-        public void spawnFood() {
-
-        }
-    }
 }
