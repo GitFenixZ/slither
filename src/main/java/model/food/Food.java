@@ -61,6 +61,10 @@ public class Food {
     }
 
     public Point2D getCoordinates() {
+        if (coordinates == null) {
+            return null;
+        }
+
         return new Point2D(coordinates.getX(), coordinates.getY());
     }
 }

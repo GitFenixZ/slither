@@ -14,11 +14,12 @@ public class GridModelImplementation implements GridModel {
 
     private final Player human;
     private final Player computer;
-    private final Food food = new Food(this);
+    private final Food food;
 
     public GridModelImplementation(Player human, Player computer) {
         this.human = human;
         this.computer = computer;
+        this.food = new Food(this);
         spawnFood();
     }
 

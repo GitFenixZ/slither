@@ -123,7 +123,7 @@ public interface GridModel {
     }
 
     default void spawnFood() {
-        if (getFood() != null) {
+        if (getFood() == null) {
             return;
         }
 
