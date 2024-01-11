@@ -88,9 +88,7 @@ public interface GridModel {
             }
         }
 
-        free_coordinates.removeIf(
-                non_free_coordinates::contains
-        );
+        free_coordinates.removeAll(non_free_coordinates);
 
         return free_coordinates;
     }

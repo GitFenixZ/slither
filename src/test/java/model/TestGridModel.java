@@ -1,12 +1,17 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.food.Food;
+import model.player.ComputerPlayerImplementation;
+import model.player.HumanPlayerImplementation;
 import model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class TestGridModel {
@@ -47,22 +52,142 @@ class TestGridModel {
 
     @Test
     void isFoodEaten_Valid() {
-        doReturn(new Point2D(16, 16)).when(grid).getFoodCoordinates();
-
+        // Set up stubbing
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
         Player player = spy(Player.class);
-        doReturn(new Snake.Builder().coordinates(new Point2D(16, 16)).build()).when(player).getSnake();
 
-        assertTrue(grid.isFoodEaten(player));
+        // Set up assertions and expectations
+        Point2D food_coordinates;
+        for (int row = 0; row < grid.getHeight(); row++) {
+            for (int col = 0; col < grid.getWidth(); col++) {
+                food_coordinates = new Point2D(col, row);
+                doReturn(food_coordinates).when(grid).getFoodCoordinates();
+                doReturn(new Snake.Builder().coordinates(food_coordinates).build()).when(player).getSnake();
+                assertTrue(grid.isFoodEaten(player));
+            }
+        }
     }
 
     @Test
     void isFoodEaten_Invalid() {
-        doReturn(new Point2D(16, 16)).when(grid).getFoodCoordinates();
-
+        // Set up stubbing
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
         Player player = spy(Player.class);
-        doReturn(new Snake.Builder().coordinates(new Point2D(0, 0)).build()).when(player).getSnake();
 
-        assertFalse(grid.isFoodEaten(player));
+        // Set up assertions and expectations
+        Point2D snake_coordinates;
+        Point2D food_coordinates = Point2D.ZERO;
+        doReturn(food_coordinates).when(grid).getFoodCoordinates();
+
+        for (int row = 0; row < grid.getHeight(); row++) {
+            for (int col = 0; col < grid.getWidth(); col++) {
+                // Skip the food coordinates
+                if (col == 0 && row == 0) {
+                    continue;
+                }
+
+                snake_coordinates = new Point2D(col, row);
+                doReturn(new Snake.Builder().coordinates(snake_coordinates).build()).when(player).getSnake();
+                assertFalse(grid.isFoodEaten(player));
+            }
+        }
+    }
+
+    @Test
+    void isFull_EmptyGrid() {
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
+        doReturn(new ArrayList<Point2D>()).when(grid).getFreeCoordinates();
+
+        assertFalse(grid.isFull());
+    }
+
+    @Test
+    void isFull_FullGrid() {
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
+
+        List<Point2D> free_coordinates = new ArrayList<>();
+        for (int row = 0; row < grid.getHeight(); row++) {
+            for (int col = 0; col < grid.getWidth(); col++) {
+                free_coordinates.add(new Point2D(col, row));
+            }
+        }
+
+        doReturn(free_coordinates).when(grid).getFreeCoordinates();
+
+        assertTrue(grid.isFull());
+    }
+
+    @Test
+    void getFreeCoordinates_EmptyGrid() {
+        // Set up stubbing
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
+
+        Player human = spy(new HumanPlayerImplementation.Builder().build());
+        Player computer = spy(new ComputerPlayerImplementation.Builder().build());
+
+        doReturn(human).when(grid).getHumanPlayer();
+        doReturn(computer).when(grid).getComputerPlayer();
+
+        doNothing().when(human).extractCoordinates(anyList());
+        doNothing().when(computer).extractCoordinates(anyList());
+        doReturn(null).when(grid).getFood();
+
+        // Set up expected
+        List<Point2D> expected = new ArrayList<>();
+        for (int row = 0; row < grid.getHeight(); row++) {
+            for (int col = 0; col < grid.getWidth(); col++) {
+                expected.add(new Point2D(col, row));
+            }
+        }
+
+        List<Point2D> actual = grid.getFreeCoordinates();
+
+        // When there is nothing on the grid, all coordinates should be free
+        assertEquals(grid.getHeight() * grid.getWidth(), actual.size());
+        assertIterableEquals(expected, actual);
+    }
+
+    @Test
+    void getFreeCoordinates_GridHasElements() {
+        // Set up stubbing
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
+
+        Player human = spy(new HumanPlayerImplementation.Builder().build());
+        Player computer = spy(new ComputerPlayerImplementation.Builder().build());
+
+        doReturn(human).when(grid).getHumanPlayer();
+        doReturn(computer).when(grid).getComputerPlayer();
+
+        Food food = mock(Food.class);
+        Point2D food_coordinates = new Point2D(0, 0);
+        doReturn(food).when(grid).getFood();
+        doReturn(food_coordinates).when(food).getCoordinates();
+
+        // Set up expected
+        List<Point2D> expected = new ArrayList<>();
+        for (int row = 0; row < grid.getHeight(); row++) {
+            for (int col = 0; col < grid.getWidth(); col++) {
+                expected.add(new Point2D(col, row));
+            }
+        }
+
+        List<Point2D> toRemove = new ArrayList<>();
+        human.extractCoordinates(toRemove);
+        computer.extractCoordinates(toRemove);
+        toRemove.add(food_coordinates);
+
+        expected.removeAll(toRemove);
+
+        List<Point2D> actual = grid.getFreeCoordinates();
+
+        assertEquals(expected.size(), actual.size());
+        assertIterableEquals(expected, actual);
     }
 
 }
