@@ -27,8 +27,8 @@ public class GridControllerImplementation implements GridController {
     }
 
     private void initControllers() {
-        ComputerController.initComputerController(model, view, this);
-        KeyboardController.initKeyboardController(model, view, this);
+        BotController.initComputerController(model, view, this);
+        HumanController.initKeyboardController(model, view, this);
     }
 
     @Override
