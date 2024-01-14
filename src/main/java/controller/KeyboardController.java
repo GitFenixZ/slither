@@ -156,7 +156,7 @@ public class KeyboardController {
         List<Point2D> dangerCells = new ArrayList<>();
         List<Player> players = model.getPlayers();
         for (Player pl : players) {
-            dangerCells.addAll(pl.getSnake().getAssuredHitBox());
+            dangerCells.addAll(pl.getSnake().getGuaranteedHitBox());
             if (!pl.equals(player)) {
                 dangerCells.addAll(pl.getSnake().getPotentialHeadPositions());
             }

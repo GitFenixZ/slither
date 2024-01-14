@@ -6,7 +6,6 @@ import model.Direction;
 import model.Segment;
 import model.Snake;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface Player {
@@ -48,33 +47,6 @@ public interface Player {
      * @param direction the direction in which the player should move
      */
     void moveToDirection(Direction direction);
-
-    /**
-     * Get the list of positions where an opponent might collide with this object next turn
-     *
-     * @return the list of positions where an opponent might collide with this object next turn
-     */
-    default List<Point2D> getDangerZone() {
-        List<Point2D> dangerZone = new ArrayList<>();
-        Snake snake = getSnake();
-
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if ((Math.abs(i) == 1 && j == 0) || (i == 0 && Math.abs(j) == 1)) {
-                    dangerZone.add(new Point2D(snake.getHeadX() + i, snake.getHeadY() + j));
-                }
-            }
-        }
-
-        for (int i = 1; i < snake.getSegments().size() - 1; i++) {
-            Point2D cell = snake.getSegmentAtIndex(i).getCoordinates();
-            if (!dangerZone.contains(cell)) {
-                dangerZone.add(cell);
-            }
-        }
-
-        return dangerZone;
-    }
 
     /**
      * Returns the Builder of the player.

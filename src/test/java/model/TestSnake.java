@@ -85,7 +85,7 @@ public class TestSnake {
     void getAssuredHitBox_HorizontalSnake() {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
 
-        List<Point2D> danger = snake.getAssuredHitBox();
+        List<Point2D> danger = snake.getGuaranteedHitBox();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(0, 0),
@@ -100,7 +100,7 @@ public class TestSnake {
         Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
         snake.moveToDirection(Direction.UP);
 
-        List<Point2D> danger = snake.getAssuredHitBox();
+        List<Point2D> danger = snake.getGuaranteedHitBox();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(0, -1),
@@ -116,7 +116,7 @@ public class TestSnake {
         snake.moveToDirection(Direction.UP);
         snake.moveToDirection(Direction.UP);
 
-        List<Point2D> danger = snake.getAssuredHitBox();
+        List<Point2D> danger = snake.getGuaranteedHitBox();
 
         List<Point2D> expected = new ArrayList<>(Arrays.asList(
                 new Point2D(0, -2),

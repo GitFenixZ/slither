@@ -106,10 +106,10 @@ public class Snake {
     public List<Point2D> getPotentialHeadPositions() {
         List<Point2D> dangerZone = new ArrayList<>();
 
-        for (int row = -1; row <= 1; row++) {
-            for (int col = -1; col <= 1; col++) {
+        for (int col = -1; col <= 1; col++) {
+            for (int row = -1; row <= 1; row++) {
                 if (isMoveVectorAllowed(row, col)) {
-                    dangerZone.add(new Point2D(getHeadX() + row, getHeadY() + col));
+                    dangerZone.add(new Point2D(getHeadX() + col, getHeadY() + row));
                 }
             }
         }
@@ -126,7 +126,7 @@ public class Snake {
      */
     private boolean isMoveVectorAllowed(int row, int col) {
         Point2D resultOppositeCurrentDirection = getHead().getDirection().getOppositeDirection().getVectorOfDirection();
-        return !resultOppositeCurrentDirection.equals(new Point2D(row, col)) &&
+        return !resultOppositeCurrentDirection.equals(new Point2D(col, row)) &&
                 ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1));
     }
 
@@ -135,7 +135,7 @@ public class Snake {
      *
      * @return the list of positions where an opponent is sure to collide with this snake on the next move
      */
-    public List<Point2D> getAssuredHitBox() {
+    public List<Point2D> getGuaranteedHitBox() {
         List<Point2D> deathZone = new ArrayList<>();
 
         //Second, adding the segments of the snake, minus the tail
