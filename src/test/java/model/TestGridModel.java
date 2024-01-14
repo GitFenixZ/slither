@@ -26,8 +26,8 @@ class TestGridModel {
 
     @Test
     void isInsideGrid_Valid() {
-        when(grid.getHeight()).thenReturn(25);
-        when(grid.getWidth()).thenReturn(25);
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
         for (int row = 0; row < grid.getHeight(); row++) {
             for (int col = 0; col < grid.getWidth(); col++) {
                 Point2D coordinates = new Point2D(row, col);
@@ -38,8 +38,8 @@ class TestGridModel {
 
     @Test
     void isInsideGrid_Invalid() {
-        when(grid.getHeight()).thenReturn(25);
-        when(grid.getWidth()).thenReturn(25);
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
         for (int row = -10; row <= grid.getHeight() + 10; row++) {
             for (int col = -10; col <= grid.getWidth() + 10; col++) {
                 if (row >= 0 && row < grid.getHeight() && col >= 0 && col < grid.getWidth()) {
