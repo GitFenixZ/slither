@@ -104,6 +104,19 @@ public interface GridModel {
         return true;
     }
 
+    /**
+     * Handles the food of the grid.
+     * If the food has not been eaten by a player, nothing happens.
+     * If the food has been eaten by a player,
+     * In this order:
+     * <ol>
+     *     <li>the food is deleted</li>
+     *     <li>the player grows</li>
+     *     <li>the new food is spawned</li>
+     * </ol>
+     *
+     * @param player the player to handle the food
+     */
     default void handleFood(Player player) {
         if (!isFoodEaten(player)) {
             return;
@@ -114,6 +127,11 @@ public interface GridModel {
         spawnFood();
     }
 
+    /**
+     * Deletes the food of the grid.
+     *
+     * @apiNote Acts only if {@link #getFood()} does not return null.
+     */
     default void deleteFood() {
         if (getFood() == null) {
             return;
@@ -122,6 +140,10 @@ public interface GridModel {
         getFood().delete();
     }
 
+    /**
+     * Spawns the food of the grid.
+     @apiNote Acts only if {@link #getFood()} does not return null.
+     */
     default void spawnFood() {
         if (getFood() == null) {
             return;
