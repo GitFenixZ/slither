@@ -69,4 +69,28 @@ public class TestSnake {
         assertEquals(2, snake.getHeadX());
         assertEquals(-2, snake.getHeadY());
     }
+
+    @Test
+    void grow() {
+        Snake snake = new Snake.Builder().coordinates(Point2D.ZERO).build();
+
+        int old_length;
+        Segment old_tail;
+        for (int i = 0; i < 10; i++) {
+            old_tail = snake.getTail();
+            old_length = snake.getLength();
+
+            snake.grow();
+
+            assertEquals(old_length + 1, snake.getLength());
+            assertEquals(old_tail.getDirection(), snake.getTail().getDirection());
+            assertEquals(
+                    old_tail.getCoordinates().add(
+                            old_tail.getDirection().
+                                    getOppositeDirection().
+                                    getVectorOfDirection()
+                    )
+                    , snake.getTail().getCoordinates());
+        }
+    }
 }
