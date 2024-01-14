@@ -7,6 +7,7 @@ import model.player.HumanPlayerImplementation;
 import model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,4 +223,73 @@ class TestGridModel {
 
         assertEquals(0, actual.size());
     }
+
+    @Test
+    void deleteFood_doesNothing_whenGetFoodReturnsNull() {
+        Food food = mock(Food.class);
+        doReturn(null).when(grid).getFood();
+
+        grid.deleteFood();
+        verify(food, never()).delete();
+    }
+
+    @Test
+    void deletedFood_callsDelete_whenGetFoodReturnsNonNull() {
+        Food food = mock(Food.class);
+        doReturn(food).when(grid).getFood();
+
+        grid.deleteFood();
+        verify(food, times(1)).delete();
+    }
+
+    @Test
+    void spawnFood_doesNothing_whenGetFoodReturnsNull() {
+        Food food = mock(Food.class);
+        doReturn(null).when(grid).getFood();
+
+        grid.spawnFood();
+        verify(food, never()).spawn();
+    }
+
+    @Test
+    void spawnFood_callsSpawn_whenGetFoodReturnsNonNull() {
+        Food food = mock(Food.class);
+        doReturn(food).when(grid).getFood();
+
+        grid.spawnFood();
+        verify(food, times(1)).spawn();
+    }
+
+    @Test
+    void handleFood_Behaviour_InOrder_whenFoodNotEaten() {
+        Player player = mock(Player.class);
+
+        doReturn(false).when(grid).isFoodEaten(player);
+
+        grid.handleFood(player);
+
+        InOrder inorder = inOrder(grid, player);
+
+        inorder.verify(grid, times(1)).isFoodEaten(player);
+        inorder.verify(grid, times(0)).deleteFood();
+        inorder.verify(player, never()).grow();
+        inorder.verify(grid, times(0)).spawnFood();
+    }
+
+    @Test
+    void handleFood_Behaviour_InOrder_whenFoodEaten() {
+        Player player = mock(Player.class);
+
+        doReturn(true).when(grid).isFoodEaten(player);
+
+        grid.handleFood(player);
+
+        InOrder inorder = inOrder(grid, player);
+
+        inorder.verify(grid, times(1)).isFoodEaten(player);
+        inorder.verify(grid, times(1)).deleteFood();
+        inorder.verify(player, times(1)).grow();
+        inorder.verify(grid, times(1)).spawnFood();
+    }
+
 }
