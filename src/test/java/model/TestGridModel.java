@@ -30,7 +30,7 @@ class TestGridModel {
         doReturn(10).when(grid).getWidth();
         for (int row = 0; row < grid.getHeight(); row++) {
             for (int col = 0; col < grid.getWidth(); col++) {
-                Point2D coordinates = new Point2D(row, col);
+                Point2D coordinates = new Point2D(col, row);
                 assertTrue(grid.isInsideGrid(coordinates));
             }
         }
@@ -45,7 +45,7 @@ class TestGridModel {
                 if (row >= 0 && row < grid.getHeight() && col >= 0 && col < grid.getWidth()) {
                     continue;
                 }
-                Point2D coordinates = new Point2D(row, col);
+                Point2D coordinates = new Point2D(col, row);
                 assertFalse(grid.isInsideGrid(coordinates));
             }
         }
