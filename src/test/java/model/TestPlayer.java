@@ -48,7 +48,7 @@ public class TestPlayer {
     }
 
     @Test
-    void extractCoordinates_whenDestinationIsNull() {
+    void extractCoordinates_extracts() {
         List<Segment> snake_segments = List.of(
                 new BasicSegment(new Point2D(0, 0), Direction.RIGHT),
                 new BasicSegment(new Point2D(1, 0), Direction.RIGHT),

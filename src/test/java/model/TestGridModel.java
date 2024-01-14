@@ -2,8 +2,8 @@ package model;
 
 import javafx.geometry.Point2D;
 import model.food.Food;
-import model.player.ComputerPlayerImplementation;
-import model.player.HumanPlayerImplementation;
+import model.player.Bot;
+import model.player.Human;
 import model.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -128,8 +128,8 @@ class TestGridModel {
         doReturn(10).when(grid).getHeight();
         doReturn(10).when(grid).getWidth();
 
-        Player human = spy(new HumanPlayerImplementation.Builder().build());
-        Player computer = spy(new ComputerPlayerImplementation.Builder().build());
+        Player human = spy(new Human.Builder().build());
+        Player computer = spy(new Bot.Builder().build());
 
         doReturn(human).when(grid).getHumanPlayer();
         doReturn(computer).when(grid).getComputerPlayer();
@@ -159,8 +159,8 @@ class TestGridModel {
         doReturn(10).when(grid).getHeight();
         doReturn(10).when(grid).getWidth();
 
-        Player human = spy(new HumanPlayerImplementation.Builder().build());
-        Player computer = spy(new ComputerPlayerImplementation.Builder().build());
+        Player human = spy(new Human.Builder().build());
+        Player computer = spy(new Bot.Builder().build());
 
         doReturn(human).when(grid).getHumanPlayer();
         doReturn(computer).when(grid).getComputerPlayer();
@@ -210,8 +210,8 @@ class TestGridModel {
         }
 
         Snake human_snake = new Snake.Builder().segments(human_snake_segments).build();
-        Player human = spy(new HumanPlayerImplementation.Builder().snake(human_snake).build());
-        Player computer = spy(new ComputerPlayerImplementation.Builder().build());
+        Player human = spy(new Human.Builder().snake(human_snake).build());
+        Player computer = spy(new Bot.Builder().build());
 
         doReturn(human).when(grid).getHumanPlayer();
         doReturn(computer).when(grid).getComputerPlayer();

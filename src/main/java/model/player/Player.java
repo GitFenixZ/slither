@@ -41,6 +41,15 @@ public interface Player {
      */
     void moveToDirection(Direction direction);
 
+    /**
+     * Returns the Builder of the player.
+     *
+     * @return the builder of the player
+     * @apiNote This method is here to force the implementation of {@link PlayerBuilder}
+     * in subclasses.
+     */
+    PlayerBuilder<? extends PlayerImplementation> getBuilder();
+
     default void grow() {
         if (getSnake() == null) {
             return;

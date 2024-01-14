@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class ComputerController {
+public class BotController {
 
     /**
      * Initializes the computer controller by adding event handlers for key presses.

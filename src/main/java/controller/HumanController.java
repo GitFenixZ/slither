@@ -5,7 +5,7 @@ import model.Direction;
 import model.GridModel;
 import view.GridView;
 
-public class KeyboardController {
+public class HumanController {
 
 
     /**
