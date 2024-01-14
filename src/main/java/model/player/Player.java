@@ -45,11 +45,6 @@ public interface Player {
         getSnake().grow();
     }
 
-    default boolean isOnCoordinates(Point2D coordinates) {
-        return getSnake().getSegments().stream().anyMatch(
-                (Segment segment) -> segment.getCoordinates().equals(coordinates));
-    }
-
     default void extractCoordinates(List<Point2D> destination) {
         destination.addAll(
                 getSnake().getSegments().stream().map(
