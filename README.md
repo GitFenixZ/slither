@@ -1,4 +1,4 @@
-# [CPOO5] Compléments en Programmation Orientée Objet, Projet : Serpents 
+# [CPOO5] Compléments en Programmation Orientée Objet, Projet : Serpents
 
 ## Dépendances
 
@@ -20,8 +20,7 @@ La configuration gradle contient les déclarations de toutes les dépendances re
 
 Par manque de temps, nous n'avons pas pu réaliser le projet en entier.
 
-Tout en essayant d'appliquer au mieux les patrons de conceptions et des outils fournis par Java,
-nous avons donc décidé de réaliser les parties suivantes :
+Nous avons donc décidé de réaliser les parties suivantes :
 - 1: déplacement d’un seul segment
 - 2: IA
 - 3: déplacement d'un serpent
@@ -43,30 +42,41 @@ Le `Launcher` se trouve à la racine du projet et sert à initialiser le MVC pou
 
 Concernant l'architecture du projet, nous avons décidé d'opter pour le design MVC (Model-View-Controller) que nous avons séparés en 3 packages : `model`, `view` et `controller`.
 
+Nous avons essayé d'appliquer au mieux les notions apprises lors du Semestre 5 telles que:
+vous trouverez donc des utilisations de Builder Pattern, de généricité, de "programmation à l'interface", etc...
+
 #### Model
 
 Le package `model` se charge de la gestion des données du jeu et de la logique.
 
-- Direction: Enumération des directions possibles et des unités de mouvements.
-- Food: Se charge de la gestion de la nourriture.
-- Player: Se charge de la gestion des joueurs.
-- Grid: Se charge de la gestion de la grille du jeu.
+Il contient les packages et classes suivants :
 
+- `Direction`: Enumération des directions possibles, unité de pas, composantes de mouvement.
+- `food`: gestion de la nourriture avec `Food`
+- `grid`: gestion de la grille du jeu et de ses éléments avec `GridModel` et `GridModelImplementation`
+- `player`: gestion des joueurs avec `Player`, `PlayerBuilder`, `PlayerImplmentation`, `Bot`, `Human` et `PlayerCounter`
+- `segment`: gestion des segments avec `Segment` et `BasicSegment`
+- `snake`: gestion des serpents avec `Snake`, `Snake.Builder` et `SnakePlacer`
+ 
 #### View
 
-Le package `view` se charge de l'affichage du jeu.
+Le package `view.grid` se charge de l'affichage du jeu.
 
-- GridView: Se charge de l'affichage de la grille du jeu et de son contenu.
+- `GridView`: Se charge de l'affichage de la grille du jeu et de son contenu.
 
 #### Controller
 
 Le package `controller` se charge de la gestion des évènements du jeu ainsi que de sa logique.
 
-- GridController et GridControllerImplementation: Se chargent des évènements de la grille
-- BotController et HumanController: Se chargent des évènements des joueurs pour les déplacements
+- `grid`: gestion des évènements de la grille avec `GridController` et `GridControllerImplementation`
+- `KeyboardController` gestion des évènements des joueurs pour les déplacements
 
 ## Auteurs
 
 Ce projet a été réalisé par le binôme 17:
 - GUETTEVILLE Nathan
 - SOAN Tony Ly
+ 
+## Dépôt Git
+
+Le dépôt git du projet se trouve à l'adresse suivante : https://github.com/GitFenixZ/slither
