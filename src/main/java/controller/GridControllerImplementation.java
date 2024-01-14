@@ -13,9 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GridControllerImplementation implements GridController {
-    private List<Human> humanPlayers;
-    private List<Bot> computerPlayers;
-
     private GridModel model;
     private GridView view;
 
@@ -36,8 +33,7 @@ public class GridControllerImplementation implements GridController {
     }
 
     private void initControllers() {
-        BotController.initComputerController(model, view, this);
-        HumanController.initKeyboardController(model, view, this);
+        KeyboardController.initKeyboardController(model, view, this);
     }
 
     @Override

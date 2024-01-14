@@ -2,8 +2,8 @@ package model;
 
 import javafx.geometry.Point2D;
 import model.food.Food;
-import model.player.ComputerPlayerImplementation;
-import model.player.HumanPlayerImplementation;
+import model.player.Bot;
+import model.player.Human;
 import model.player.Player;
 import org.junit.jupiter.api.Test;
 
@@ -58,12 +58,12 @@ class TestGrid {
         }
 
         @Override
-        public List<HumanPlayerImplementation> getHumanPlayers() {
+        public List<Human> getHumanPlayers() {
             return null;
         }
 
         @Override
-        public List<ComputerPlayerImplementation> getComputerPlayers() {
+        public List<Bot> getComputerPlayers() {
             return null;
         }
 

@@ -196,6 +196,9 @@ public class Snake {
         }
 
         public Snake build() {
+            if (coordinates == null) {
+                coordinates = SnakePlacer.getNextStartingPosition();
+            }
             if (segments == null) {
                 segments = buildDefaultSegments();
             }

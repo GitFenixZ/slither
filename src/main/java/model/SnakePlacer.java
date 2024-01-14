@@ -10,16 +10,12 @@ public class SnakePlacer {
 
     private static final List<Point2D> startingPositions =
             new ArrayList<>(Arrays.asList(new Point2D(
-                            (int) GridModelImplementation.WIDTH / 4,
-                            (int) GridModelImplementation.HEIGHT / 2
+                            GridModelImplementation.WIDTH / 4,
+                            GridModelImplementation.HEIGHT / 2
                     ),
                     new Point2D(
-                            (int) GridModelImplementation.WIDTH / 2,
-                            (int) GridModelImplementation.HEIGHT / 2
-                    ),
-                    new Point2D(
-                            (int) GridModelImplementation.WIDTH / 4 * 3,
-                            (int) GridModelImplementation.HEIGHT / 2
+                            GridModelImplementation.WIDTH / 4 * 3,
+                            GridModelImplementation.HEIGHT / 2
                     )
             ));
 
@@ -32,11 +28,11 @@ public class SnakePlacer {
      * @throws ArrayIndexOutOfBoundsException if the maximum number of player has already been reached
      */
     public static Point2D getNextStartingPosition() throws ArrayIndexOutOfBoundsException {
-        if (index < startingPositions.size()) {
-            Point2D tmp = startingPositions.get(index);
-            index++;
-            return tmp;
+        if (index == startingPositions.size()) {
+            index = 0;
         }
-        throw new ArrayIndexOutOfBoundsException("Player limit attained");
+        Point2D tmp = startingPositions.get(index);
+        index++;
+        return tmp;
     }
 }
