@@ -31,7 +31,10 @@ public class GridView {
      */
     private void init() {
         // Create the scene
-        scene = new Scene(getPane(), model.getWidth() * GridView.CELL_SIZE, model.getHeight() * GridView.CELL_SIZE);
+        scene = new Scene(
+                getPane(),
+                model.getWidth() * GridView.CELL_SIZE,
+                model.getHeight() * GridView.CELL_SIZE);
 
         // Set the canvas dimensions
         canvas.setWidth(model.getWidth() * CELL_SIZE);
@@ -50,23 +53,58 @@ public class GridView {
 
         drawPlayer(gc, model.getHumanPlayer());
         drawPlayer(gc, model.getComputerPlayer());
+        drawFood(gc);
     }
 
     private void drawPlayer(GraphicsContext gc, Player player) {
         List<Segment> segments = player.getSnake().getSegments();
+        int count = 0;
         segments.forEach((Segment segment) -> {
-            gc.setFill(player.getColor());
-                    gc.fillRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    gc.setFill(player.getColor());
+                    gc.fillRect(
+                            segment.getX() * CELL_SIZE,
+                            segment.getY() * CELL_SIZE,
+                            CELL_SIZE,
+                            CELL_SIZE);
 
-            if (player.getSnake().getHead().equals(segment)) {
-                gc.setStroke(Color.GOLD);
-            } else {
-                gc.setStroke(Color.BLACK);
-            }
-            gc.setLineWidth(2.5);
-            gc.strokeRect(segment.getX() * CELL_SIZE, segment.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    if (player.getSnake().getHead().equals(segment)) {
+                        gc.setStroke(Color.GOLD);
+                    } else {
+                        gc.setStroke(Color.BLACK);
+                    }
+                    gc.setLineWidth(2.5);
+                    gc.strokeRect(
+                            segment.getX() * CELL_SIZE,
+                            segment.getY() * CELL_SIZE,
+                            CELL_SIZE,
+                            CELL_SIZE);
+
+                    String arrow;
+                    switch (segment.getDirection()) {
+                        case UP -> arrow = "↑";
+                        case DOWN -> arrow = "↓";
+                        case LEFT -> arrow = "←";
+                        case RIGHT -> arrow = "→";
+                        default -> arrow = "X";
+                    }
+
+                    // Draw the direction of the segment
+                    gc.setFill(Color.BLACK);
+                    gc.fillText(arrow,
+                            segment.getX() * CELL_SIZE + CELL_SIZE / 2,
+                            segment.getY() * CELL_SIZE + CELL_SIZE / 2);
                 }
         );
+    }
+
+    private void drawFood(GraphicsContext gc) {
+        gc.setFill(Color.PURPLE);
+        gc.fillOval(
+                model.getFoodCoordinates().getX() * CELL_SIZE,
+                model.getFoodCoordinates().getY() * CELL_SIZE,
+                CELL_SIZE,
+                CELL_SIZE);
+
     }
 
     public Scene getScene() {

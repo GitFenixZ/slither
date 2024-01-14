@@ -1,5 +1,7 @@
 package model;
 
+import javafx.geometry.Point2D;
+import model.food.Food;
 import model.player.Player;
 
 public class GridModelImplementation implements GridModel {
@@ -9,10 +11,13 @@ public class GridModelImplementation implements GridModel {
 
     private final Player human;
     private final Player computer;
+    private final Food food;
 
     public GridModelImplementation(Player human, Player computer) {
         this.human = human;
         this.computer = computer;
+        this.food = new Food(this);
+        spawnFood();
     }
 
     @Override
@@ -33,5 +38,14 @@ public class GridModelImplementation implements GridModel {
     @Override
     public int getHeight() {
         return HEIGHT;
+    }
+
+    public Point2D getFoodCoordinates() {
+        return food.getCoordinates();
+    }
+
+    @Override
+    public Food getFood() {
+        return food;
     }
 }

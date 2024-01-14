@@ -27,6 +27,10 @@ public class Snake {
         return getSegmentAtIndex(0);
     }
 
+    public Segment getTail() {
+        return getSegmentAtIndex(getLength() - 1);
+    }
+
     Point2D getHeadCoordinates() {
         return getHead().getCoordinates();
     }
@@ -78,12 +82,28 @@ public class Snake {
                 .build();
     }
 
+    public void grow() {
+        Segment tail = getTail();
+        Direction tailDirection = tail.getDirection();
+
+        Point2D newTailCoordinates = tail.getCoordinates().add(
+                tailDirection.getOppositeDirection().getVectorOfDirection()
+        );
+
+        Segment newTail = new BasicSegment(
+                newTailCoordinates,
+                tailDirection
+        );
+
+        segments.add(newTail);
+    }
+
     public static class Builder {
         private static final int DEFAULT_SNAKE_LENGTH = 3;
         private List<Segment> segments = null;
         private Point2D coordinates = new Point2D(
-                (int) (GridModelImplementation.WIDTH / 2),
-                (int) (GridModelImplementation.HEIGHT / 2));
+                GridModelImplementation.WIDTH / 2,
+                GridModelImplementation.HEIGHT / 2);
         private Color color = Color.GREEN;
 
         /**
