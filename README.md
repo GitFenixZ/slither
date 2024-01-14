@@ -29,7 +29,6 @@ Nous avons donc décidé de réaliser les parties suivantes :
 
 ## Architecture
 
-
 ### Tests
 
 Nous avons fait en sorte de tester rigoureusement notre code à l'aide de `Junit5` et `Mockito`.
@@ -37,6 +36,10 @@ Nous avons fait en sorte de tester rigoureusement notre code à l'aide de `Junit
 Les tests se trouvent dans le dossier `src/test/java`.
 
 ### Implémentation
+
+#### Diagramme de `main`
+
+![Diagramme de main](./doc/main_diagram.png)
 
 Le `Launcher` se trouve à la racine du projet et sert à initialiser le MVC pour lancer le jeu via la commande `./gradlew run`.
 
