@@ -49,6 +49,7 @@ public interface Player {
      * in subclasses.
      */
     PlayerBuilder<? extends PlayerImplementation> getBuilder();
+
     default void grow() {
         if (getSnake() == null) {
             return;

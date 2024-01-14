@@ -4,8 +4,8 @@ import model.Direction;
 import model.GridModel;
 import model.GridModelImplementation;
 import model.player.Bot;
-import model.player.Player;
 import model.player.Human;
+import model.player.Player;
 import view.GridView;
 
 public class GridControllerImplementation implements GridController {
