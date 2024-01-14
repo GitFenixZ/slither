@@ -1,13 +1,14 @@
 package controller;
 
+import controller.grid.GridController;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import model.Direction;
-import model.GridModel;
+import model.grid.GridModel;
 import model.player.Bot;
 import model.player.Human;
 import model.player.Player;
-import view.GridView;
+import view.grid.GridView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

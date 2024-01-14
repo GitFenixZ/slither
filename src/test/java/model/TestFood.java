@@ -2,6 +2,7 @@ package model;
 
 import javafx.geometry.Point2D;
 import model.food.Food;
+import model.grid.GridModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

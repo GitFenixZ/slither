@@ -1,7 +1,7 @@
 package model.food;
 
 import javafx.geometry.Point2D;
-import model.GridModel;
+import model.grid.GridModel;
 
 import java.util.List;
 

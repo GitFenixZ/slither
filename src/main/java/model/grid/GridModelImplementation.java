@@ -1,4 +1,4 @@
-package model;
+package model.grid;
 
 import javafx.geometry.Point2D;
 import model.food.Food;

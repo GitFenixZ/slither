@@ -1,6 +1,8 @@
-package model;
+package model.segment;
 
 import javafx.geometry.Point2D;
+import model.Direction;
+import model.snake.Snake;
 
 /**
  * Interface representing {@link Snake}'s segment in a slither game.

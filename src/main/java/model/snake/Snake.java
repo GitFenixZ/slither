@@ -1,7 +1,10 @@
-package model;
+package model.snake;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import model.Direction;
+import model.segment.BasicSegment;
+import model.segment.Segment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,7 @@ public class Snake {
         return getSegmentAtIndex(getLength() - 1);
     }
 
-    Point2D getHeadCoordinates() {
+    public Point2D getHeadCoordinates() {
         return getHead().getCoordinates();
     }
 

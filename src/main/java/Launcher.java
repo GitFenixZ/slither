@@ -1,8 +1,8 @@
-import controller.GridController;
-import controller.GridControllerImplementation;
+import controller.grid.GridController;
+import controller.grid.GridControllerImplementation;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.GridView;
+import view.grid.GridView;
 
 public class Launcher extends Application {
 

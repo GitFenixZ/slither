@@ -1,12 +1,13 @@
-package controller;
+package controller.grid;
 
+import controller.KeyboardController;
 import model.Direction;
-import model.GridModel;
-import model.GridModelImplementation;
+import model.grid.GridModel;
+import model.grid.GridModelImplementation;
 import model.player.Bot;
 import model.player.Human;
 import model.player.Player;
-import view.GridView;
+import view.grid.GridView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

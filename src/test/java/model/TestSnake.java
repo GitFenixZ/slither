@@ -1,6 +1,8 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.segment.Segment;
+import model.snake.Snake;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

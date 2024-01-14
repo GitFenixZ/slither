@@ -1,10 +1,11 @@
-package model;
+package model.segment;
 
 import javafx.geometry.Point2D;
+import model.Direction;
 
 import java.util.Objects;
 
-class BasicSegment implements Segment {
+public class BasicSegment implements Segment {
     private Point2D coordinates;
     private Direction direction;
 

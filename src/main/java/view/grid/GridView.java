@@ -1,4 +1,4 @@
-package view;
+package view.grid;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,8 +9,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import model.GridModel;
-import model.Segment;
+import model.grid.GridModel;
+import model.segment.Segment;
 import model.player.Player;
 
 import java.util.ArrayList;

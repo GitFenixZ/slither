@@ -1,6 +1,7 @@
-package model;
+package model.grid;
 
 import javafx.geometry.Point2D;
+import model.Direction;
 import model.player.Bot;
 import model.player.Human;
 import model.food.Food;
