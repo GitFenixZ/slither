@@ -60,24 +60,24 @@ public class GridView {
         List<Segment> segments = player.getSnake().getSegments();
         int count = 0;
         segments.forEach((Segment segment) -> {
-            gc.setFill(player.getColor());
-            gc.fillRect(
-                    segment.getX() * CELL_SIZE,
-                    segment.getY() * CELL_SIZE,
-                    CELL_SIZE,
-                    CELL_SIZE);
+                    gc.setFill(player.getColor());
+                    gc.fillRect(
+                            segment.getX() * CELL_SIZE,
+                            segment.getY() * CELL_SIZE,
+                            CELL_SIZE,
+                            CELL_SIZE);
 
-            if (player.getSnake().getHead().equals(segment)) {
-                gc.setStroke(Color.GOLD);
-            } else {
-                gc.setStroke(Color.BLACK);
-            }
-            gc.setLineWidth(2.5);
-            gc.strokeRect(
-                    segment.getX() * CELL_SIZE,
-                    segment.getY() * CELL_SIZE,
-                    CELL_SIZE,
-                    CELL_SIZE);
+                    if (player.getSnake().getHead().equals(segment)) {
+                        gc.setStroke(Color.GOLD);
+                    } else {
+                        gc.setStroke(Color.BLACK);
+                    }
+                    gc.setLineWidth(2.5);
+                    gc.strokeRect(
+                            segment.getX() * CELL_SIZE,
+                            segment.getY() * CELL_SIZE,
+                            CELL_SIZE,
+                            CELL_SIZE);
 
                     String arrow;
                     switch (segment.getDirection()) {
@@ -90,9 +90,9 @@ public class GridView {
 
                     // Draw the direction of the segment
                     gc.setFill(Color.BLACK);
-            gc.fillText(arrow,
-                    segment.getX() * CELL_SIZE + CELL_SIZE / 2,
-                    segment.getY() * CELL_SIZE + CELL_SIZE / 2);
+                    gc.fillText(arrow,
+                            segment.getX() * CELL_SIZE + CELL_SIZE / 2,
+                            segment.getY() * CELL_SIZE + CELL_SIZE / 2);
                 }
         );
     }
