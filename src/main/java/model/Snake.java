@@ -82,6 +82,73 @@ public class Snake {
                 .build();
     }
 
+    /**
+     * Checks if the head of the snake entered in collision with another snake
+     *
+     * @param other the opponent snake
+     * @return true if the head of the snake is colliding with the other
+     */
+    public boolean collidedWith(Snake other) {
+        boolean otherIsThis = other.getHead().equals(getHead());
+        for (Segment s : other.segments) {
+            if ((!otherIsThis || !s.equals(getHead())) && getHeadCoordinates().equals(s.getCoordinates())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get the list of positions where the snake's head could be on the next move
+     *
+     * @return the list of positions where the snake's head could be on the next move
+     */
+    public List<Point2D> getPotentialHeadPositions() {
+        List<Point2D> dangerZone = new ArrayList<>();
+
+        for (int col = -1; col <= 1; col++) {
+            for (int row = -1; row <= 1; row++) {
+                if (isMoveVectorAllowed(row, col)) {
+                    dangerZone.add(new Point2D(getHeadX() + col, getHeadY() + row));
+                }
+            }
+        }
+
+        return dangerZone;
+    }
+
+    /**
+     * Checks if a move from row horizontally and col vertically is allowed
+     *
+     * @param row The horizontal value
+     * @param col The vertical Value
+     * @return true if a move from row horizontally and col vertically is allowed, false otherwise
+     */
+    private boolean isMoveVectorAllowed(int row, int col) {
+        Point2D resultOppositeCurrentDirection = getHead().getDirection().getOppositeDirection().getVectorOfDirection();
+        return !resultOppositeCurrentDirection.equals(new Point2D(col, row)) &&
+                ((Math.abs(row) == 1 && col == 0) || (row == 0 && Math.abs(col) == 1));
+    }
+
+    /**
+     * Get the list of positions where an opponent is sure to collide with this snake on the next move
+     *
+     * @return the list of positions where an opponent is sure to collide with this snake on the next move
+     */
+    public List<Point2D> getGuaranteedHitBox() {
+        List<Point2D> deathZone = new ArrayList<>();
+
+        //Second, adding the segments of the snake, minus the tail
+        for (int i = 0; i < getSegments().size() - 1; i++) {
+            Point2D cell = getSegmentAtIndex(i).getCoordinates();
+            if (!deathZone.contains(cell)) {
+                deathZone.add(cell);
+            }
+        }
+
+        return deathZone;
+    }
+
     public void grow() {
         Segment tail = getTail();
         Direction tailDirection = tail.getDirection();
@@ -101,9 +168,7 @@ public class Snake {
     public static class Builder {
         private static final int DEFAULT_SNAKE_LENGTH = 3;
         private List<Segment> segments = null;
-        private Point2D coordinates = new Point2D(
-                GridModelImplementation.WIDTH / 2,
-                GridModelImplementation.HEIGHT / 2);
+        private Point2D coordinates;
         private Color color = Color.GREEN;
 
         /**
@@ -131,6 +196,9 @@ public class Snake {
         }
 
         public Snake build() {
+            if (coordinates == null) {
+                coordinates = SnakePlacer.getNextStartingPosition();
+            }
             if (segments == null) {
                 segments = buildDefaultSegments();
             }

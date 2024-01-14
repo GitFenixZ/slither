@@ -1,6 +1,8 @@
 package model;
 
 import javafx.geometry.Point2D;
+import model.player.Bot;
+import model.player.Human;
 import model.food.Food;
 import model.player.Player;
 
@@ -13,18 +15,27 @@ import java.util.List;
 public interface GridModel {
 
     /**
-     * Gets the human player of the grid.
+     * Gets the current phase of play
      *
-     * @return the player of the grid
+     * @return the current phase of play
      */
-    Player getHumanPlayer();
+    Phase getPhase();
 
     /**
-     * Gets the computer-controlled player of the grid.
-     *
-     * @return the player of the grid
+     * Modifies the current phase of play
      */
-    Player getComputerPlayer();
+    void setPhase(Phase phase);
+
+    List<Human> getHumanPlayers();
+
+    List<Bot> getComputerPlayers();
+
+    /**
+     * Gets the grid's players' list
+     *
+     * @return the grid's players' list
+     */
+    List<Player> getPlayers();
 
     /**
      * Gets the width of the grid.
@@ -71,8 +82,12 @@ public interface GridModel {
         List<Point2D> non_free_coordinates = new ArrayList<>();
 
         // Add coordinates occupied by players' whole snake to non_free_coordinates
-        getHumanPlayer().extractCoordinates(non_free_coordinates);
-        getComputerPlayer().extractCoordinates(non_free_coordinates);
+        for (Human human : getHumanPlayers()) {
+            human.extractCoordinates(non_free_coordinates);
+        }
+        for (Bot cpu : getComputerPlayers()) {
+            cpu.extractCoordinates(non_free_coordinates);
+        }
 
         // Add coordinates occupied by food to non_free_coordinates
         if (getFood() != null && getFood().getCoordinates() != null) {
@@ -192,16 +207,9 @@ public interface GridModel {
         return true;
     }
 
-    /**
-     * Checks if the game is over.
-     *
-     * @return true if the game is over, false otherwise.
-     * @apiNote The game is considered over if the snake's head is outside the grid.
-     */
-    default boolean isGameOver() {
-        return !isInsideGrid(getHumanPlayer().
-                getSnake().
-                getHeadCoordinates());
+    enum Phase {
+        PLAYING,
+        GAME_OVER
     }
 
 }

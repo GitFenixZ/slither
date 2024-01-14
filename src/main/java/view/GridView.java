@@ -1,14 +1,20 @@
 package view;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import model.GridModel;
 import model.Segment;
 import model.player.Player;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GridView {
@@ -51,15 +57,16 @@ public class GridView {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear the canvas
 
-        drawPlayer(gc, model.getHumanPlayer());
-        drawPlayer(gc, model.getComputerPlayer());
+        for (Player player : model.getPlayers()) {
+            drawPlayer(gc, player);
+        }
         drawFood(gc);
     }
 
     private void drawPlayer(GraphicsContext gc, Player player) {
-        List<Segment> segments = player.getSnake().getSegments();
-        int count = 0;
-        segments.forEach((Segment segment) -> {
+        List<Segment> revSegments = new ArrayList<>(player.getSnake().getSegments());
+        Collections.reverse(revSegments);
+        revSegments.forEach((Segment segment) -> {
                     gc.setFill(player.getColor());
                     gc.fillRect(
                             segment.getX() * CELL_SIZE,
@@ -109,6 +116,24 @@ public class GridView {
 
     public Scene getScene() {
         return scene;
+    }
+
+    public void gameOver(String winner) {
+        StackPane stackPane = (StackPane) scene.getRoot();
+
+        VBox vbox = new VBox(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        Label gameOverLabel = new Label("Game Over");
+        Label winnerLabel = new Label(winner + " wins");
+
+        gameOverLabel.setFont(new Font(80));
+        winnerLabel.setFont(new Font(40));
+
+        vbox.getChildren().add(gameOverLabel);
+        vbox.getChildren().add(winnerLabel);
+
+        stackPane.getChildren().add(vbox);
     }
 
 }
