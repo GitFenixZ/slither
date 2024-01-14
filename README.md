@@ -45,7 +45,7 @@ Le `Launcher` se trouve à la racine du projet et sert à initialiser le MVC pou
 
 Concernant l'architecture du projet, nous avons décidé d'opter pour le design MVC (Model-View-Controller) que nous avons séparés en 3 packages : `model`, `view` et `controller`.
 
-Nous avons essayé d'appliquer au mieux les notions apprises lors du Semestre 5 telles que:
+Nous avons essayé d'appliquer au mieux les notions apprises lors du Semestre 5,
 vous trouverez donc des utilisations de Builder Pattern, de généricité, de "programmation à l'interface", etc...
 
 #### Model
