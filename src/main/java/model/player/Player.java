@@ -42,10 +42,18 @@ public interface Player {
     void moveToDirection(Direction direction);
 
     default void grow() {
+        if (getSnake() == null) {
+            return;
+        }
+
         getSnake().grow();
     }
 
     default void extractCoordinates(List<Point2D> destination) {
+        if (destination == null || getSnake() == null || getSnake().getSegments() == null) {
+            return;
+        }
+
         destination.addAll(
                 getSnake().getSegments().stream().map(
                         Segment::getCoordinates
