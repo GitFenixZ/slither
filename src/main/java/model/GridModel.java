@@ -142,7 +142,8 @@ public interface GridModel {
 
     /**
      * Spawns the food of the grid.
-     @apiNote Acts only if {@link #getFood()} does not return null.
+     *
+     * @apiNote Acts only if {@link #getFood()} does not return null.
      */
     default void spawnFood() {
         if (getFood() == null) {

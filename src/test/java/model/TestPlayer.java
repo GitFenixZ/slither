@@ -2,7 +2,6 @@ package model;
 
 import javafx.geometry.Point2D;
 import model.player.Player;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;

@@ -3,7 +3,6 @@ package model;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,8 +102,8 @@ public class Snake {
         private static final int DEFAULT_SNAKE_LENGTH = 3;
         private List<Segment> segments = null;
         private Point2D coordinates = new Point2D(
-                (int) (GridModelImplementation.WIDTH / 2),
-                (int) (GridModelImplementation.HEIGHT / 2));
+                GridModelImplementation.WIDTH / 2,
+                GridModelImplementation.HEIGHT / 2);
         private Color color = Color.GREEN;
 
         /**

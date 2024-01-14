@@ -1,11 +1,8 @@
 package model;
 
 import javafx.geometry.Point2D;
-import model.player.Player;
 import model.food.Food;
-
-import java.util.ArrayList;
-import java.util.List;
+import model.player.Player;
 
 public class GridModelImplementation implements GridModel {
 
