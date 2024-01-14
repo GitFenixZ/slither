@@ -22,15 +22,16 @@ public class GridModelImplementation implements GridModel {
     private final Food food;
 
     public GridModelImplementation(List<Human> humanPlayers, List<Bot> computerPlayers) {
-        this.phase = Phase.PLAYING;
-        this.food = new Food(this);
-        spawnFood();
         this.humanPlayers = humanPlayers;
         this.computerPlayers = computerPlayers;
-
         this.players = new ArrayList<>();
         this.players.addAll(humanPlayers);
         this.players.addAll(computerPlayers);
+
+        this.phase = Phase.PLAYING;
+        this.food = new Food(this);
+        spawnFood();
+
     }
 
     @Override

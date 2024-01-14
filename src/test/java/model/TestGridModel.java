@@ -128,11 +128,17 @@ class TestGridModel {
         doReturn(10).when(grid).getHeight();
         doReturn(10).when(grid).getWidth();
 
-        Player human = spy(new Human.Builder().build());
-        Player computer = spy(new Bot.Builder().build());
+        Human human = spy(new Human.Builder().build());
+        Bot computer = spy(new Bot.Builder().build());
 
-        doReturn(human).when(grid).getHumanPlayer();
-        doReturn(computer).when(grid).getComputerPlayer();
+        List<Human> humans = new ArrayList<>();
+        humans.add(human);
+
+        List<Bot> computers = new ArrayList<>();
+        computers.add(computer);
+
+        doReturn(humans).when(grid).getHumanPlayers();
+        doReturn(computers).when(grid).getComputerPlayers();
 
         doNothing().when(human).extractCoordinates(anyList());
         doNothing().when(computer).extractCoordinates(anyList());
@@ -159,11 +165,17 @@ class TestGridModel {
         doReturn(10).when(grid).getHeight();
         doReturn(10).when(grid).getWidth();
 
-        Player human = spy(new Human.Builder().build());
-        Player computer = spy(new Bot.Builder().build());
+        Human human = spy(new Human.Builder().build());
+        Bot computer = spy(new Bot.Builder().build());
 
-        doReturn(human).when(grid).getHumanPlayer();
-        doReturn(computer).when(grid).getComputerPlayer();
+        List<Human> humans = new ArrayList<>();
+        humans.add(human);
+
+        List<Bot> computers = new ArrayList<>();
+        computers.add(computer);
+
+        doReturn(humans).when(grid).getHumanPlayers();
+        doReturn(computers).when(grid).getComputerPlayers();
 
         Food food = mock(Food.class);
         Point2D food_coordinates = new Point2D(0, 0);
@@ -210,11 +222,17 @@ class TestGridModel {
         }
 
         Snake human_snake = new Snake.Builder().segments(human_snake_segments).build();
-        Player human = spy(new Human.Builder().snake(human_snake).build());
-        Player computer = spy(new Bot.Builder().build());
+        Human human = spy(new Human.Builder().snake(human_snake).build());
+        Bot computer = spy(new Bot.Builder().build());
 
-        doReturn(human).when(grid).getHumanPlayer();
-        doReturn(computer).when(grid).getComputerPlayer();
+        List<Human> humans = new ArrayList<>();
+        humans.add(human);
+
+        List<Bot> computers = new ArrayList<>();
+        computers.add(computer);
+
+        doReturn(humans).when(grid).getHumanPlayers();
+        doReturn(computers).when(grid).getComputerPlayers();
         doNothing().when(computer).extractCoordinates(anyList());
 
         doReturn(null).when(grid).getFood();
