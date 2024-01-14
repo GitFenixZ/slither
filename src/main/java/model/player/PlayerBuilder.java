@@ -2,6 +2,7 @@ package model.player;
 
 import javafx.scene.paint.Color;
 import model.Snake;
+import model.player.PlayerImplementation;
 
 /**
  * The abstract class PlayerBuilder is a class following the Builder design
@@ -12,7 +13,7 @@ import model.Snake;
  * @apiNote Subclasses must implement the {@link #build()} method to create the
  * wanted player object
  */
-public abstract class PlayerBuilder<T extends Player> {
+public abstract class PlayerBuilder<T extends PlayerImplementation> {
     protected Color color;
     protected String name;
     protected Snake snake;
