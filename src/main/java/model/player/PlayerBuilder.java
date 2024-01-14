@@ -1,7 +1,7 @@
 package model.player;
 
 import javafx.scene.paint.Color;
-import model.Snake;
+import model.snake.Snake;
 
 /**
  * The abstract class PlayerBuilder is a class following the Builder design

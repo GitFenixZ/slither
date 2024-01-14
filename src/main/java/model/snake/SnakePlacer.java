@@ -1,6 +1,7 @@
-package model;
+package model.snake;
 
 import javafx.geometry.Point2D;
+import model.grid.GridModelImplementation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

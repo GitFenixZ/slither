@@ -2,7 +2,7 @@ package model.player;
 
 import javafx.scene.paint.Color;
 import model.Direction;
-import model.Snake;
+import model.snake.Snake;
 
 public abstract class PlayerImplementation implements Player {
     private final int id;

@@ -2,9 +2,13 @@ package model;
 
 import javafx.geometry.Point2D;
 import model.food.Food;
+import model.grid.GridModel;
 import model.player.Bot;
 import model.player.Human;
 import model.player.Player;
+import model.segment.BasicSegment;
+import model.segment.Segment;
+import model.snake.Snake;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;

@@ -1,7 +1,7 @@
 package model.player;
 
 import javafx.scene.paint.Color;
-import model.Snake;
+import model.snake.Snake;
 
 public class Human extends PlayerImplementation {
     public Human(Builder builder) {

@@ -1,9 +1,9 @@
-package controller;
+package controller.grid;
 
 import model.Direction;
-import model.GridModel;
+import model.grid.GridModel;
 import model.player.Player;
-import view.GridView;
+import view.grid.GridView;
 
 /**
  * The GridController interface represents a controller for the game grid.

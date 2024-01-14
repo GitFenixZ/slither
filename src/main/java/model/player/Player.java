@@ -3,8 +3,8 @@ package model.player;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import model.Direction;
-import model.Segment;
-import model.Snake;
+import model.segment.Segment;
+import model.snake.Snake;
 
 import java.util.List;
 
