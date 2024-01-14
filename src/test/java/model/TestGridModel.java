@@ -97,16 +97,16 @@ class TestGridModel {
     }
 
     @Test
-    void isFull_EmptyGrid() {
+    void isFull_FullGrid() {
         doReturn(10).when(grid).getHeight();
         doReturn(10).when(grid).getWidth();
         doReturn(new ArrayList<Point2D>()).when(grid).getFreeCoordinates();
 
-        assertFalse(grid.isFull());
+        assertTrue(grid.isFull());
     }
 
     @Test
-    void isFull_FullGrid() {
+    void isFull_EmptyGrid() {
         doReturn(10).when(grid).getHeight();
         doReturn(10).when(grid).getWidth();
 
@@ -119,7 +119,7 @@ class TestGridModel {
 
         doReturn(free_coordinates).when(grid).getFreeCoordinates();
 
-        assertTrue(grid.isFull());
+        assertFalse(grid.isFull());
     }
 
     @Test

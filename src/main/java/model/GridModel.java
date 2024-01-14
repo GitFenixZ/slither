@@ -53,12 +53,12 @@ public interface GridModel {
 
     /**
      * Checks if the grid is full.
-     * The grid is full when there are no more free coordinates.
+     * The grid is full when there are no free coordinates.
      *
      * @return true if the grid is full, false otherwise
      */
     default boolean isFull() {
-        return getFreeCoordinates().size() == getHeight() * getWidth();
+        return getFreeCoordinates().isEmpty();
     }
 
     /**
