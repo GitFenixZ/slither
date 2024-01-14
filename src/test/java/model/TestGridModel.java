@@ -153,7 +153,7 @@ class TestGridModel {
     }
 
     @Test
-    void getFreeCoordinates_GridHasElements() {
+    void getFreeCoordinates_GridHasSomeElements() {
         // Set up stubbing
         doReturn(10).when(grid).getHeight();
         doReturn(10).when(grid).getWidth();
@@ -190,4 +190,36 @@ class TestGridModel {
         assertIterableEquals(expected, actual);
     }
 
+    @Test
+    void getFreeCoordinates_GridIsFull() {
+        // Set up stubbing
+        doReturn(10).when(grid).getHeight();
+        doReturn(10).when(grid).getWidth();
+
+        // For the sake of simplicity, we will assume that the grid is full of a human's snake
+        List<Segment> human_snake_segments = new ArrayList<>();
+
+        for (int row = 0; row < grid.getHeight(); row++) {
+            for (int col = 0; col < grid.getWidth(); col++) {
+                // Set up human_snake
+                human_snake_segments.add(
+                        new BasicSegment(new Point2D(col, row), Direction.RIGHT)
+                );
+            }
+        }
+
+        Snake human_snake = new Snake.Builder().segments(human_snake_segments).build();
+        Player human = spy(new HumanPlayerImplementation.Builder().snake(human_snake).build());
+        Player computer = spy(new ComputerPlayerImplementation.Builder().build());
+
+        doReturn(human).when(grid).getHumanPlayer();
+        doReturn(computer).when(grid).getComputerPlayer();
+        doNothing().when(computer).extractCoordinates(anyList());
+
+        doReturn(null).when(grid).getFood();
+
+        List<Point2D> actual = grid.getFreeCoordinates();
+
+        assertEquals(0, actual.size());
+    }
 }
