@@ -225,6 +225,38 @@ class TestGridModel {
     }
 
     @Test
+    void movePlayer_Behaviour_InOrder_whenMoveIsInvalid() {
+        Player player = mock(Player.class);
+        Direction direction = Direction.UP;
+
+        doReturn(false).when(grid).isMoveValid(player, direction);
+
+        assertFalse(grid.movePlayer(player, direction));
+
+        InOrder inorder = inOrder(grid, player);
+        inorder.verify(grid, times(1)).isMoveValid(player, direction);
+        inorder.verify(player, never()).moveToDirection(direction);
+        inorder.verify(grid, never()).handleFood(player);
+    }
+
+    @Test
+    void movePlayer_Behaviour_InOrder_whenMoveIsValid() {
+        Player player = mock(Player.class);
+        Direction direction = Direction.UP;
+
+        doReturn(true).when(grid).isMoveValid(player, direction);
+        doNothing().when(player).moveToDirection(direction);
+        doNothing().when(grid).handleFood(player);
+
+        assertTrue(grid.movePlayer(player, direction));
+
+        InOrder inorder = inOrder(grid, player);
+        inorder.verify(grid, times(1)).isMoveValid(player, direction);
+        inorder.verify(player, times(1)).moveToDirection(direction);
+        inorder.verify(grid, times(1)).handleFood(player);
+    }
+
+    @Test
     void deleteFood_doesNothing_whenGetFoodReturnsNull() {
         Food food = mock(Food.class);
         doReturn(null).when(grid).getFood();
